@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/responsive.css" rel="stylesheet" />
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 
 <body class="sub_page">
@@ -78,54 +77,58 @@
         <div class="container">
           <div class="row">
             <div class="col-md-7 mx-auto">
+              <form id="submitForm">
               <div class="contact_form-container">
-                <form id="myForm">
                   <div>
-                    <input type="text" placeholder="Name" name="name" id="nameInput" />
+                    <input type="text" placeholder="Name" name="Name" id="name" />
                   </div>
                   <div>
-                    <input type="email" placeholder="Email address" name="gmail" id="emailInput" />
+                    <input type="email" placeholder="Email address" name="Gmail" id="gmail" />
                   </div>
                   <div>
-                    <input type="text" placeholder="File Link" name="link" id="linkInput" />
+                    <input type="text" placeholder="File Link" name="Link" id="link" />
                   </div>
                   <br>
                   <div class="btn-box">
-                    <button type="submit" id="submit">
+                    <button type="submit">
                       Send
                     </button>
                   </div>
-                  <br><br><br><br><br><br><br><br><br><br><br><br>
-                </form>
-                <hr>
+                  <hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>
               </div>
+              </form>
             </div>
           </div>
         </div>
     </div>
-    <script>
-      document.getElementById('myForm').addEventListener('submit', function (e) {
-        var nameInput = document.getElementById('nameInput').value;
-        var emailInput = document.getElementById('emailInput').value;
-        var linkInput = document.getElementById('linkInput').value;
-      
-        var formData = {
-          name: nameInput,
-          email: emailInput,
-          link: linkInput
-        };
-      
-        emailjs.send("service_ym6gmyr", "template_n3438ps", formData, "9YAm0L_hSJxODFUr6")
-          .then(function(response) {
-            console.log("Email sent successfully", response);
-          }, function(error) {
-            console.error("Email could not be sent", error);
-          });
-      
-        e.preventDefault();
-      });
-    </script>
 </section>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script>
+    emailjs.init("9YAm0L_hSJxODFUr6");
+  
+    document.getElementById("submitForm").onsubmit = function (event) {
+      event.preventDefault();
+  
+      var name = document.getElementById("name").value;
+      var gmail = document.getElementById("gmail").value;
+      var link = document.getElementById("link").value;
+  
+      var templateParams = {
+        name: name,
+        gmail: gmail,
+        link: link,
+      };
+  
+      emailjs.send("service_ym6gmyr", "emplate_dqnmbod", templateParams)
+        .then(function (response) {
+          console.log("Email sent successfully:", response);
+          window.open("Thank.html", "_self");
+          document.getElementById("submitForm").reset();
+        }, function (error) {
+          window.open("Error.html", "_self");
+        });
+    };
+  </script>
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
@@ -133,7 +136,6 @@
   </footer>
   <footer class="container-fluid footer_section">
   </footer>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="js/bootstrap.js"></script>
   <script src="js/custom.js"></script>
