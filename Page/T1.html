@@ -8,6 +8,20 @@
     right: 0px;
     z-index: 1000;
   }
+  .cart-item-count {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 0, 0, 0);
+    color: rgb(0, 0, 0);
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 50%;
+    display: inline-block;
+    min-width: 20px;
+    text-align: center;
+  }
 </style>
 <head>
   <meta charset="utf-8" />
@@ -50,7 +64,12 @@
                 Quantumsprints@gmail.com
               </span>
             </a>
-            <div class="CartTop"><a href="../Cart.html"><img src="../images/Cart.png" width="70px"></a></div>
+            <div class="CartTop">
+              <a href="../Cart.html">
+                  <img src="../images/Cart.png" width="70px">
+                  <span class="cart-item-count" id="cart-item-count">0</span>
+              </a>
+            </div>
 
           </div>
         </div>
@@ -78,7 +97,7 @@
               This is multimeter that could be used to messure voltage, Resistance, Capacicitence, Current And transistor It comes with 9v battary for power and have back stand. Mesure wires are included. BE CAREFUL it is a non fused multimeter so if you put over 10A are more then 600v It will Blow 
             </p>
             <div class="btn-box">
-              <a href="">
+              <a href="javascript:void(0);" onclick="addToCart('Multimeter', 25)">
                 Add to basket
               </a>
               <a href="">
@@ -91,6 +110,54 @@
     </div>
   </section>
 
+  <script>
+     // Retrieve cart items from localStorage when the page loads
+     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+     
+     // Update cart item count in the basket button when the page loads
+     window.onload = function () {
+         const cartItemCount = document.getElementById('cart-item-count');
+         cartItemCount.textContent = cartItems.length; // Update cart item count
+     };
+
+    function addToCart(itemName, itemPrice) {
+        // Update cart item count in the basket button
+        const cartItemCount = document.getElementById('cart-item-count');
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        cartItems.push({
+            name: itemName,
+            price: itemPrice
+        });
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        cartItemCount.textContent = cartItems.length; // Update cart item count
+        alert('Product added to cart!');
+    
+        // Update cart content and total
+        updateCart();
+    }
+
+    function updateCart() {
+    const cartItemsDiv = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    const cartItemCount = document.getElementById('cart-item-count'); // Get the cart item count element
+
+    let total = 0;
+    cartItemsDiv.innerHTML = '';
+
+    cartItems.forEach((item, index) => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.textContent = `${item.name} - ${item.price.toFixed(2)} Kr`;
+        cartItemsDiv.appendChild(cartItemDiv);
+        total += item.price;
+    });
+
+    cartTotal.textContent = ` ${total.toFixed(2)} Kr`;
+    cartItemCount.textContent = cartItems.length; // Update the cart item count
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+}
+
+</script>
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
