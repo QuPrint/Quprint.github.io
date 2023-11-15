@@ -178,8 +178,8 @@
                         </div>
                         <div class="detail-box">
                             <h5>Multimeter</h5>
-                            <h6 class="">25kr</h6>
-                            <button class="add-to-cart" onclick="addToCart('Multimeter', 25)">Add to Cart</button>
+                            <h6 class="">5kr</h6>
+                            <button class="add-to-cart" onclick="addToCart('Multimeter', 5)">Add to Cart</button>
                         </div>
                     </div>
                 </div>
@@ -192,7 +192,7 @@
                         </div>
                         <div class="detail-box">
                             <h5>Name&Name</h5>
-                            <h6 class="">50kr</h6>
+                            <h6 class="">5kr</h6>
                             <button class="add-to-cart" onclick="openNameForm()">Add to Cart</button>
                             <form id="name-form" class="name-form" style="display: none;">
                                 <label for="name1">Name 1:</label>
@@ -305,7 +305,7 @@
 
             if (name1 && name2) {
                 const newName = `${name1}&${name2}`;
-                addToCart(selectedProductName, 50, newName);
+                addToCart(selectedProductName, 5, newName);
                 document.getElementById('name-form').style.display = 'none';
 
                 // Show the "Add to Cart" button for the "Name&Name" item again
