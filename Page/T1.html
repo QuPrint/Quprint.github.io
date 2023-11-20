@@ -22,7 +22,53 @@
     min-width: 20px;
     text-align: center;
   }
+  .NOTE {
+    color: red;
+  }
+  .arrow-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+  }
+
+  .arrow-buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .heart-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #000;
+    position: relative;
+  }
+
+  .heart-shape {
+    width: 1em;
+    height: 1em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translate(0.25em, 0);
+  }
+
+  .red-heart {
+    fill: red;
+    stroke: black;
+    stroke-width: 2;
+  }
+
+  .white-heart {
+    fill: white;
+    stroke: black;
+    stroke-width: 2;
+  }
 </style>
+
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -83,25 +129,55 @@
         <div class="col-md-6 px-0">
           <div class="img_container">
             <div class="img-box">
-              <img src="../images/T1_S.png" alt=""/>
+              <img src="../images/T1_1.png" alt="" id="product-image"/>
             </div>
           </div>
+          <div class="arrow-buttons-container">
+            <button class="arrow-button" onclick="changeImage('prev')">←</button>
+            <button class="arrow-button" onclick="changeImage('next')">→</button>
+          </div>
+          <button class="heart-button" id="heart-button" onclick="toggleHeart()">
+            <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+              <path class="white-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
+            </svg>
+          </button>
         </div>
         <div class="col-md-6 px-0">
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Multimeter<hr>25kr</h2>
+                Stamp<hr>5kr</h2>
             </div>
             <p>
-              This is multimeter that could be used to messure voltage, Resistance, Capacicitence, Current And transistor It comes with 9v battary for power and have back stand. Mesure wires are included. BE CAREFUL it is a non fused multimeter so if you put over 10A are more then 600v It will Blow 
+              Create your custom stamp with ease! Choose from three sizes:
+              <br><br>
+              Small (50mm Circle): Ideal for logos and initials in tight spaces.<br>
+              Medium (85mm Circle): Strikes a balance between size and visibility.
+              Large (70mm x 24mm Rectangle): Perfect for detailed designs or additional information.<br><br>
+              Unleash your creativity: upload company logos, artwork, or messages for a unique stamp.
+              <br><br>
+              Order today for an elevated stamping experience and leave your mark effortlessly!
             </p>
+            <br>
+            <br>
+            <div class="checkbox-container">
+              <input type="radio" id="largeCheckbox" name="size" value="Large">
+              <label for="largeCheckbox">Large</label>
+              <input type="radio" id="mediumCheckbox" name="size" value="Medium">
+              <label for="mediumCheckbox">Medium</label>
+              <input type="radio" id="smallCheckbox" name="size" value="Small">
+              <label for="smallCheckbox">Small</label>
+            </div>
+            <div class="file-upload">
+              <input type="file" id="imageUpload" accept=".png">
+            </div>
+            <div class="NOTE">
+              NOTE: Ink Not Included
+            </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Multimeter', 25)">
+              <a href="javascript:void(0);" onclick="addToCart('Stamp', 5)">
                 Add to basket
-              </a>
-              <a href="">
-                Buy now
               </a>
             </div>
           </div>
@@ -111,53 +187,104 @@
   </section>
 
   <script>
-     // Retrieve cart items from localStorage when the page loads
+    window.onbeforeunload = function () {
+    // Clear the file input value when leaving the page
+    const imageUpload = document.getElementById('imageUpload');
+    imageUpload.value = '';
+  };
+
+  // Add this function to update the filename display
+  function updateFilename() {
+    const imageUpload = document.getElementById('imageUpload');
+    const filenameDisplay = document.getElementById('filenameDisplay');
+
+    // Check if a file is selected
+    if (imageUpload.files.length > 0) {
+      filenameDisplay.textContent = imageUpload.files[0].name;
+    } else {
+      filenameDisplay.textContent = ''; // Clear the display if no file is selected
+    }
+  }
+
+  // Add an event listener to the file input to update the filename display
+  document.getElementById('imageUpload').addEventListener('change', updateFilename);
+     let currentImageIndex = 1;
+
+     function changeImage(direction) {
+      const productImage = document.getElementById('product-image');
+
+      if (direction === 'next') {
+        currentImageIndex = (currentImageIndex % 3) + 1;
+      } else if (direction === 'prev') {
+        currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
+      }
+
+      productImage.src = `../images/T1_${currentImageIndex}.png`;
+    }
+
+    function toggleHeart() {
+      const heartButton = document.getElementById('heart-button');
+      const isRed = heartButton.classList.toggle('red-heart');
+
+      if (isRed) {
+        heartButton.querySelector('.red-heart').style.display = 'block';
+        heartButton.querySelector('.white-heart').style.display = 'none';
+      } else {
+        heartButton.querySelector('.red-heart').style.display = 'none';
+        heartButton.querySelector('.white-heart').style.display = 'block';
+      }
+
+      document.cookie = `heartState=${isRed ? 'red' : 'white'}; path=/`;
+    }
+
+    window.onload = function () {
+      const heartButton = document.getElementById('heart-button');
+      const heartState = getCookie('heartState');
+
+      if (heartState === 'red') {
+        heartButton.classList.add('red-heart');
+        heartButton.querySelector('.red-heart').style.display = 'block';
+        heartButton.querySelector('.white-heart').style.display = 'none';
+      }
+    };
+
+    function getCookie(name) {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
      
-     // Update cart item count in the basket button when the page loads
      window.onload = function () {
          const cartItemCount = document.getElementById('cart-item-count');
-         cartItemCount.textContent = cartItems.length; // Update cart item count
+         cartItemCount.textContent = cartItems.length;
      };
 
     function addToCart(itemName, itemPrice) {
-        // Update cart item count in the basket button
         const cartItemCount = document.getElementById('cart-item-count');
         const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const largeCheckbox = document.getElementById('largeCheckbox');
+        const mediumCheckbox = document.getElementById('mediumCheckbox');
+        const smallCheckbox = document.getElementById('smallCheckbox');
+        const imageUpload = document.getElementById('imageUpload');
+
+        if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
+          alert('Please select a size and upload a PNG image to add to the cart.');
+          return;
+        }
+
         cartItems.push({
             name: itemName,
             price: itemPrice
         });
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        cartItemCount.textContent = cartItems.length; // Update cart item count
+        cartItemCount.textContent = cartItems.length;
         alert('Product added to cart!');
-    
-        // Update cart content and total
-        updateCart();
     }
 
-    function updateCart() {
-    const cartItemsDiv = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
-    const cartItemCount = document.getElementById('cart-item-count'); // Get the cart item count element
+  </script>
 
-    let total = 0;
-    cartItemsDiv.innerHTML = '';
-
-    cartItems.forEach((item, index) => {
-        const cartItemDiv = document.createElement('div');
-        cartItemDiv.className = 'cart-item';
-        cartItemDiv.textContent = `${item.name} - ${item.price.toFixed(2)} Kr`;
-        cartItemsDiv.appendChild(cartItemDiv);
-        total += item.price;
-    });
-
-    cartTotal.textContent = ` ${total.toFixed(2)} Kr`;
-    cartItemCount.textContent = cartItems.length; // Update the cart item count
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-}
-
-</script>
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
