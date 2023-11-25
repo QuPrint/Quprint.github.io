@@ -258,6 +258,30 @@
     </div>
 
     <script>
+        function openStampForm() {
+            document.getElementById('stamp-form').style.display = 'block';
+        }
+
+        function addToCartWithStamp() {
+            const stampSizeS = document.getElementById('stampSizeS').checked;
+            const stampSizeM = document.getElementById('stampSizeM').checked;
+            const stampSizeL = document.getElementById('stampSizeL').checked;
+            const stampImageUpload = document.getElementById('stampImageUpload').files[0];
+
+            if ((stampSizeS || stampSizeM || stampSizeL) && stampImageUpload) {
+                const sizes = [];
+                if (stampSizeS) sizes.push('S');
+                if (stampSizeM) sizes.push('M');
+                if (stampSizeL) sizes.push('L');
+
+                const sizeString = sizes.join(', ');
+
+                addToCart("Stamp", 5, "Stamp", sizeString, stampImageUpload);
+                document.getElementById('stamp-form').style.display = 'none';
+            } else {
+                alert('Please select at least one size and upload an image for the Stamp.');
+            }
+        }
         let cartItems = [];
         let selectedProductName = '';
 
