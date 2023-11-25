@@ -163,12 +163,13 @@
             </div>
         </div>
     </header>
-    <section class="team_section layout_padding">
+      <section class="team_section layout_padding">
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>Our products</h2>
             </div>
             <div class="row">
+                <!-- Stamp Product -->
                 <div class="col-md-4 col-sm-6 mx-auto">
                     <div class="box product-box">
                         <div class="img-box">
@@ -179,10 +180,26 @@
                         <div class="detail-box">
                             <h5>Stamp</h5>
                             <h6 class="">5kr</h6>
-                            <button class="add-to-cart" onclick="addToCart('Stamp', 5)">Add to Cart</button>
+                            <button class="add-to-cart" onclick="openStampForm()">Add to Cart</button>
+                            <form id="stamp-form" class="stamp-form" style="display: none;">
+                                <label>Sizes:</label>
+                                <input type="checkbox" id="stampSizeS" value="S">
+                                <label for="stampSizeS">S</label>
+                                <input type="checkbox" id="stampSizeM" value="M">
+                                <label for="stampSizeM">M</label>
+                                <input type="checkbox" id="stampSizeL" value="L">
+                                <label for="stampSizeL">L</label>
+
+                                <label for="stampImageUpload">Image:</label>
+                                <input type="file" id="stampImageUpload" accept="image/*">
+
+                                <button type="button" class="cart-items" onclick="addToCartWithStamp()">Add to Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>
+
+                <!-- Name&Name Product -->
                 <div class="col-md-4 col-sm-6 mx-auto">
                     <div class="box product-box">
                         <div class="img-box">
@@ -199,6 +216,18 @@
                                 <input type="text" id="name1" required>
                                 <label for="name2">Name 2:</label>
                                 <input type="text" id="name2" required>
+
+                                <label>Sizes:</label>
+                                <input type="checkbox" id="nameSizeS" value="S">
+                                <label for="nameSizeS">S</label>
+                                <input type="checkbox" id="nameSizeM" value="M">
+                                <label for="nameSizeM">M</label>
+                                <input type="checkbox" id="nameSizeL" value="L">
+                                <label for="nameSizeL">L</label>
+
+                                <label for="nameImageUpload">Image:</label>
+                                <input type="file" id="nameImageUpload" accept="image/*">
+
                                 <button type="button" class="cart-items" onclick="addToCartWithName()">Add to Cart</button>
                             </form>
                         </div>
