@@ -117,7 +117,6 @@
     </header>
   </div>
 
-  
   <section class="about_section layout_padding">
     <div class="container">
       <div class="row">
@@ -127,7 +126,10 @@
               <img src="../images/T2_1.png" alt="" id="product-image"/>
             </div>
           </div>
-          
+          <div class="arrow-buttons-container">
+            <button class="arrow-button" onclick="changeImage('prev')">←</button>
+            <button class="arrow-button" onclick="changeImage('next')">→</button>
+          </div>
           <button class="heart-button" id="heart-button" onclick="toggleHeart()">
             <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
               <path class="red-heart" d="M12 21.35l-1.45-1.32C5.4 14.25 2 11.16 2 7.5 2 4.42 4.42 2 7.5 2 9.24 2 10.91 2.89 12 4.35 13.09 2.89 14.76 2 16.5 2 19.58 2 22 4.42 22 7.5c0 3.65-3.4 6.75-8.55 12.03L12 21.35z"/>
@@ -150,15 +152,22 @@
             </p>
             <br>
             <br>
-            <form>
-              <label for="fname">First name:</label><br>
-              <input type="text" id="fname" name="fname" value=""><br>
-              <label for="lname">Second name:</label><br>
-              <input type="text" id="lname" name="lname" value=""><br>
-            </form>
-            <br>
+            <div class="checkbox-container">
+              <input type="radio" id="largeCheckbox" name="size" value="Large">
+              <label for="largeCheckbox">Large</label>
+              <input type="radio" id="mediumCheckbox" name="size" value="Medium">
+              <label for="mediumCheckbox">Medium</label>
+              <input type="radio" id="smallCheckbox" name="size" value="Small">
+              <label for="smallCheckbox">Small</label>
+            </div>
+            <div class="file-upload">
+              <input type="file" id="imageUpload" accept=".png">
+            </div>
+            <div class="NOTE">
+              NOTE: Ink Not Included
+            </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Loveboard', 5)">
+              <a href="javascript:void(0);" onclick="addToCart('Stamp', 5)">
                 Add to basket
               </a>
             </div>
@@ -167,6 +176,7 @@
       </div>
     </div>
   </section>
+
   <script>
     window.onbeforeunload = function () {
     // Clear the file input value when leaving the page
