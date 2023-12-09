@@ -110,11 +110,6 @@
                 Quantumsprints@gmail.com
               </span>
             </a>
-            <div class="CartTop">
-              <a href="../Cart.html">
-                  <img src="../images/Cart.png" width="70px">
-              </a>
-            </div>
 
           </div>
         </div>
@@ -260,28 +255,29 @@
          cartItemCount.textContent = cartItems.length;
      };
 
-    function addToCart(itemName, itemPrice) {
-        const cartItemCount = document.getElementById('cart-item-count');
-        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-        const largeCheckbox = document.getElementById('largeCheckbox');
-        const mediumCheckbox = document.getElementById('mediumCheckbox');
-        const smallCheckbox = document.getElementById('smallCheckbox');
-        const imageUpload = document.getElementById('imageUpload');
+     function addToCart(itemName, itemPrice) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const largeCheckbox = document.getElementById('largeCheckbox');
+    const mediumCheckbox = document.getElementById('mediumCheckbox');
+    const smallCheckbox = document.getElementById('smallCheckbox');
+    const imageUpload = document.getElementById('imageUpload');
 
-        if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
-          alert('Please select a size and upload a PNG image to add to the cart.');
-          return;
-        }
-
-        cartItems.push({
-            name: itemName,
-            price: itemPrice
-        });
-        localStorage.setItem('cartItems', JSON.stringify(cartItems));
-        cartItemCount.textContent = cartItems.length;
-        alert('Product added to cart!');
+    if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
+        alert('Please select a size and upload a PNG image to add to the cart.');
+        return;
     }
 
+    const newItem = {
+        name: itemName,
+        price: itemPrice
+    };
+
+    cartItems.push(newItem);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    // Redirect to Cart.html after adding the item
+    window.location.href = 'Cart.html';
+}
   </script>
 
   <footer class="container-fluid footer_section">
