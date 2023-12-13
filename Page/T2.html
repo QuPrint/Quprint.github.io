@@ -109,7 +109,7 @@
               <span>
                 Quantumsprints@gmail.com
               </span>
-            </a>
+            </a>        
 
           </div>
         </div>
@@ -137,7 +137,7 @@
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Loveboard<hr>5kr</h2>
+                LovePlate<hr>5kr</h2>
             </div>
             <p>
               Create your custom Loveboard with ease!
@@ -148,19 +148,14 @@
             </p>
             <br>
             <br>
-            <div class="checkbox-container">
-              <input type="radio" id="largeCheckbox" name="size" value="Large">
-              <label for="largeCheckbox">Large</label>
-              <input type="radio" id="mediumCheckbox" name="size" value="Medium">
-              <label for="mediumCheckbox">Medium</label>
-              <input type="radio" id="smallCheckbox" name="size" value="Small">
-              <label for="smallCheckbox">Small</label>
-            </div>
             <div class="file-upload">
-              <input type="file" id="imageUpload" accept=".png">
+              <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
+            </div>
+            <div class="NOTE">
+              <br>
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Loveboard', 5)">
+              <a href="javascript:void(0);" onclick="addToCart('Tag', 5)">
                 Add to basket
               </a>
             </div>
@@ -203,7 +198,7 @@
         currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
       }
 
-      productImage.src = `../images/T2_${currentImageIndex}.png`;
+      productImage.src = `../images/T3_${currentImageIndex}.png`;
     }
 
     function toggleHeart() {
@@ -246,28 +241,26 @@
      };
 
      function addToCart(itemName, itemPrice) {
+    const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const largeCheckbox = document.getElementById('largeCheckbox');
-    const mediumCheckbox = document.getElementById('mediumCheckbox');
-    const smallCheckbox = document.getElementById('smallCheckbox');
-    const imageUpload = document.getElementById('imageUpload');
+    const phoneNrInput = document.getElementById('Pn');
 
-    if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
-        alert('Please select a size and upload a PNG image to add to the cart.');
-        return;
+    // Check if the phoneNrInput is empty
+    if (phoneNrInput.value.trim() === '') {
+      alert('Please fill in the PhoneNr field');
+      return;
     }
 
-    const newItem = {
-        name: itemName,
-        price: itemPrice
-    };
-
-    cartItems.push(newItem);
+    // Add the item to the cart
+    cartItems.push({
+      name: itemName,
+      price: itemPrice
+    });
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+    alert('Product added to cart!');
+  }
 
-    // Redirect to Cart.html after adding the item
-    window.location.href = 'Cart.html';
-}
   </script>
 
   <footer class="container-fluid footer_section">
