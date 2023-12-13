@@ -150,7 +150,7 @@
             <br>
             <div class="file-upload">
               <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br><br>              
-              <input type="text" id="" name="Pn" value="" placeholder="PhoneNr" required><br>
+              <input type="text" id="Pn1" name="Pn1" value="" placeholder="PhoneNr" required><br>
             </div>
             <div class="NOTE">
               <br>
@@ -245,13 +245,17 @@
     const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const phoneNrInput = document.getElementById('Pn');
+    const phoneNr1Input = document.getElementById('Pn1');
 
     // Check if the phoneNrInput is empty
     if (phoneNrInput.value.trim() === '') {
       alert('Please fill in the Names field');
       return;
     }
-
+   if (phoneNrInput1.value.trim() === '') {
+      alert('Please fill in the Names field');
+      return;
+    }
     // Add the item to the cart
     cartItems.push({
       name: itemName,
