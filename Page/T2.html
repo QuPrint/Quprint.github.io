@@ -166,31 +166,32 @@
     </div>
   </section>
 
-  <script>
+<script>
     window.onbeforeunload = function () {
-    // Clear the file input value when leaving the page
-    const imageUpload = document.getElementById('imageUpload');
-    imageUpload.value = '';
-  };
+      // Clear the file input value when leaving the page
+      const imageUpload = document.getElementById('imageUpload');
+      imageUpload.value = '';
+    };
 
-  // Add this function to update the filename display
-  function updateFilename() {
-    const imageUpload = document.getElementById('imageUpload');
-    const filenameDisplay = document.getElementById('filenameDisplay');
+    // Add this function to update the filename display
+    function updateFilename() {
+      const imageUpload = document.getElementById('imageUpload');
+      const filenameDisplay = document.getElementById('filenameDisplay');
 
-    // Check if a file is selected
-    if (imageUpload.files.length > 0) {
-      filenameDisplay.textContent = imageUpload.files[0].name;
-    } else {
-      filenameDisplay.textContent = ''; // Clear the display if no file is selected
+      // Check if a file is selected
+      if (imageUpload.files.length > 0) {
+        filenameDisplay.textContent = imageUpload.files[0].name;
+      } else {
+        filenameDisplay.textContent = ''; // Clear the display if no file is selected
+      }
     }
-  }
 
-  // Add an event listener to the file input to update the filename display
-  document.getElementById('imageUpload').addEventListener('change', updateFilename);
-     let currentImageIndex = 1;
+    // Add an event listener to the file input to update the filename display
+    document.getElementById('imageUpload').addEventListener('change', updateFilename);
 
-     function changeImage(direction) {
+    let currentImageIndex = 1;
+
+    function changeImage(direction) {
       const productImage = document.getElementById('product-image');
 
       if (direction === 'next') {
@@ -199,7 +200,7 @@
         currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
       }
 
-      productImage.src = `../images/T3_${currentImageIndex}.png`;
+      productImage.src = `../images/T1_${currentImageIndex}.png`;
     }
 
     function toggleHeart() {
@@ -226,6 +227,10 @@
         heartButton.querySelector('.red-heart').style.display = 'block';
         heartButton.querySelector('.white-heart').style.display = 'none';
       }
+
+      const cartItemCount = document.getElementById('cart-item-count');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartItemCount.textContent = cartItems.length;
     };
 
     function getCookie(name) {
@@ -234,38 +239,31 @@
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-     
-     window.onload = function () {
-         const cartItemCount = document.getElementById('cart-item-count');
-         cartItemCount.textContent = cartItems.length;
-     };
+    function addToCart(itemName, itemPrice) {
+      const cartItemCount = document.getElementById('cart-item-count');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const phoneNrInput = document.getElementById('Pn');
+      const phoneNr1Input = document.getElementById('Pn1');
 
-     function addToCart(itemName, itemPrice) {
-    const cartItemCount = document.getElementById('cart-item-count');
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const phoneNrInput = document.getElementById('Pn');
-    const phoneNr1Input = document.getElementById('Pn1');
+      // Check if the phoneNrInput is empty
+      if (phoneNrInput.value.trim() === '') {
+        alert('Please fill in the Names field');
+        return;
+      }
+      if (phoneNr1Input.value.trim() === '') {
+        alert('Please fill in the Names field');
+        return;
+      }
 
-    // Check if the phoneNrInput is empty
-    if (phoneNrInput.value.trim() === '') {
-      alert('Please fill in the Names field');
-      return;
+      // Add the item to the cart
+      cartItems.push({
+        name: itemName,
+        price: itemPrice
+      });
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      cartItemCount.textContent = cartItems.length;
+      alert('Product added to cart!');
     }
-   if (phoneNrInput1.value.trim() === '') {
-      alert('Please fill in the Names field');
-      return;
-    }
-    // Add the item to the cart
-    cartItems.push({
-      name: itemName,
-      price: itemPrice
-    });
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    cartItemCount.textContent = cartItems.length;
-    alert('Product added to cart!');
-  }
-
   </script>
 
   <footer class="container-fluid footer_section">
