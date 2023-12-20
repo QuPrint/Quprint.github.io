@@ -67,24 +67,6 @@
     stroke: black;
     stroke-width: 2;
   }
-
-   @keyframes bounceIn {
-    0%, 20%, 50%, 80%, 100% {
-      transform: translateY(0);
-    }
-
-    40% {
-      transform: translateY(-20px);
-    }
-
-    60% {
-      transform: translateY(-10px);
-    }
-  }
-
-  .bounce-in {
-    animation: bounceIn 0.5s ease;
-  }
 </style>
 
 <head>
@@ -273,38 +255,26 @@
          cartItemCount.textContent = cartItems.length;
      };
 
-   function addToCart(itemName, itemPrice) {
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const largeCheckbox = document.getElementById('largeCheckbox');
-      const mediumCheckbox = document.getElementById('mediumCheckbox');
-      const smallCheckbox = document.getElementById('smallCheckbox');
-      const imageUpload = document.getElementById('imageUpload');
+     function addToCart(itemName, itemPrice) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const largeCheckbox = document.getElementById('largeCheckbox');
+    const mediumCheckbox = document.getElementById('mediumCheckbox');
+    const smallCheckbox = document.getElementById('smallCheckbox');
+    const imageUpload = document.getElementById('imageUpload');
 
-      if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
+    if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
         alert('Please select a size and upload a PNG image to add to the cart.');
         return;
-      }
+    }
 
-      const newItem = {
+    const newItem = {
         name: itemName,
         price: itemPrice
-      };
+    };
 
-      cartItems.push(newItem);
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItems.push(newItem);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
-      // Trigger the animation
-      const cartTop = document.querySelector('.CartTop');
-      cartTop.classList.add('bounce-in');
-
-      // Remove the animation class after the animation ends
-      setTimeout(() => {
-        cartTop.classList.remove('bounce-in');
-      }, 500);
-
-      // Update the cart item count
-      const cartItemCount = document.getElementById('cart-item-count');
-      cartItemCount.textContent = cartItems.length;
     }
   </script>
 
