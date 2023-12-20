@@ -67,6 +67,16 @@
     stroke: black;
     stroke-width: 2;
   }
+  .added-to-cart-animation {
+    animation: fadeOut 2s forwards;
+  }
+
+  @keyframes fadeOut {
+    to {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+  }
 </style>
 
 <head>
@@ -170,7 +180,7 @@
               NOTE: Ink Not Included
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Stamp', 5)">
+              <a href="javascript:void(0);" onclick="addToCart('Stamp', 5)" id="addToCartButton">
                 Add to basket
               </a>
             </div>
@@ -256,25 +266,37 @@
      };
 
      function addToCart(itemName, itemPrice) {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const largeCheckbox = document.getElementById('largeCheckbox');
-    const mediumCheckbox = document.getElementById('mediumCheckbox');
-    const smallCheckbox = document.getElementById('smallCheckbox');
-    const imageUpload = document.getElementById('imageUpload');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const largeCheckbox = document.getElementById('largeCheckbox');
+      const mediumCheckbox = document.getElementById('mediumCheckbox');
+      const smallCheckbox = document.getElementById('smallCheckbox');
+      const imageUpload = document.getElementById('imageUpload');
+      const addToCartButton = document.getElementById('addToCartButton');
 
-    if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
+      if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
         alert('Please select a size and upload a PNG image to add to the cart.');
         return;
-    }
+      }
 
-    const newItem = {
+      const newItem = {
         name: itemName,
         price: itemPrice
-    };
+      };
 
-    cartItems.push(newItem);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+      cartItems.push(newItem);
+      localStorage.setItem('cartItems', JSON.stringify(cartItems));
 
+      // Update button text and disable it during the animation
+      addToCartButton.innerText = 'ADDED TO CART';
+      addToCartButton.classList.add('added-to-cart-animation');
+      addToCartButton.disabled = true;
+
+      // Reset button state after the animation completes
+      setTimeout(() => {
+        addToCartButton.innerText = 'Add to basket';
+        addToCartButton.classList.remove('added-to-cart-animation');
+        addToCartButton.disabled = false;
+      }, 2000);
     }
   </script>
 
