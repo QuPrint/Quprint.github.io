@@ -15,7 +15,6 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet" />
   <link href="css/style.css" rel="stylesheet" />
   <link href="css/responsive.css" rel="stylesheet" />
-  <script src="https://www.paypal.com/sdk/js?client-id=AQ_TnhAT8I5QETWbvPONL4jBSrr_bzUv5kcF9MGpVa8195TPdytmi6cpnUY35eUuDZQrLDgfnDSPr2SE&currency=SEK"></script>
 
   <style>
     .cart-content {
@@ -160,11 +159,8 @@
       <div class="cart-items-wrapper">
         <div id="cart-items"></div>
         <h3>Total: <span id="cart-total">0.00</span></h3>
-        <!-- Hide the "Order Now" button -->
-        <!-- <button id="order-button" style="display: none;" onclick="placeOrder()">Order Now</button> -->
-        <!-- Render the PayPal button -->
-        <div id="paypal-button-container"></div>
-      </div>
+        <button type="button" onclick="applyCoupon()">Apply Coupon</button>
+        </div>
       <div class="coupon-form">
         <label for="coupon-code">Coupon Code:</label>
         <input type="text" id="coupon-code" name="coupon-code" placeholder="">
