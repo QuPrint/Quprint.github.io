@@ -1,0 +1,26 @@
+<!-- Add this container to display item details -->
+<div id="infos-container"></div>
+<script>
+  function displayItemDetails() {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const infosContainer = document.getElementById('infos-container');
+
+  infosContainer.innerHTML = ''; // Clear previous content
+
+  cartItems.forEach((item) => {
+    const itemDetails = document.createElement('div');
+    itemDetails.innerHTML = `
+      <p>ID: ${item.id}</p>
+      <p>Item: ${item.name}</p>
+      <p>Quantity: ${item.quantity}</p>
+      <p>Price: ${item.price.toFixed(2)} Kr</p>
+      <hr>
+    `;
+    infosContainer.appendChild(itemDetails);
+  });
+}
+
+// Call this function when the Infos.html page loads
+window.onload = displayItemDetails;
+
+</script>
