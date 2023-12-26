@@ -255,7 +255,7 @@
          cartItemCount.textContent = cartItems.length;
      };
 
-     function addToCart(itemName, itemPrice) {
+    function addToCart(itemName, itemPrice) {
   const cartItemCount = document.getElementById('cart-item-count');
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   const largeCheckbox = document.getElementById('largeCheckbox');
@@ -264,7 +264,8 @@
   const phoneNrInput = document.getElementById('Pn');
 
   // Check if the phoneNrInput is empty
-  if (phoneNrInput.value.trim() === '') {
+  const phoneNr = phoneNrInput.value.trim();
+  if (phoneNr === '') {
     alert('Please fill in the PhoneNr field');
     return;
   }
@@ -275,8 +276,8 @@
     return;
   }
 
-  // Generate a more reliable unique ID
-  const itemId = `${new Date().getTime()}_${Math.random()}`;
+  // Use the phone number as the ID
+  const itemId = phoneNr;
 
   // Add the item to the cart with additional information
   cartItems.push({
@@ -291,7 +292,6 @@
 
   alert('Product added to cart!');
 }
-
 
 
   </script>
