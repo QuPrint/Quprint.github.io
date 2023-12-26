@@ -275,8 +275,8 @@
     return;
   }
 
-  // Generate a unique ID for each item
-  const itemId = new Date().getTime();
+  // Generate a more reliable unique ID
+  const itemId = `${new Date().getTime()}_${Math.random()}`;
 
   // Add the item to the cart with additional information
   cartItems.push({
@@ -291,6 +291,7 @@
 
   alert('Product added to cart!');
 }
+
 
 
   </script>
