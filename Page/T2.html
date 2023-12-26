@@ -240,30 +240,30 @@
     }
 
     function addToCart(itemName, itemPrice) {
-      const cartItemCount = document.getElementById('cart-item-count');
-      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-      const phoneNrInput = document.getElementById('Pn');
-      const phoneNr1Input = document.getElementById('Pn1');
+    const cartItemCount = document.getElementById('cart-item-count');
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const name1Input = document.getElementById('Pn');
+    const name2Input = document.getElementById('Pn1');
 
-      // Check if the phoneNrInput is empty
-      if (phoneNrInput.value.trim() === '') {
-        alert('Please fill in the Names field');
-        return;
-      }
-      if (phoneNr1Input.value.trim() === '') {
-        alert('Please fill in the Names field');
-        return;
-      }
-
-      // Add the item to the cart
-      cartItems.push({
-        name: itemName,
-        price: itemPrice
-      });
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      cartItemCount.textContent = cartItems.length;
-      alert('Product added to cart!');
+    // Check if the name1Input or name2Input is empty
+    if (name1Input.value.trim() === '' || name2Input.value.trim() === '') {
+      alert('Please fill in both Names fields');
+      return;
     }
+
+    // Add the item to the cart
+    cartItems.push({
+      name: itemName,
+      price: itemPrice,
+      quantity: 1, // Always set the quantity to 1
+      Name1: name1Input.value.trim(),
+      Name2: name2Input.value.trim(),
+    });
+
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    cartItemCount.textContent = cartItems.length;
+    alert('Product added to cart!');
+  }
   </script>
 
   <footer class="container-fluid footer_section">
