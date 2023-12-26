@@ -256,34 +256,42 @@
      };
 
      function addToCart(itemName, itemPrice) {
-    const cartItemCount = document.getElementById('cart-item-count');
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const largeCheckbox = document.getElementById('largeCheckbox');
-    const mediumCheckbox = document.getElementById('mediumCheckbox');
-    const smallCheckbox = document.getElementById('smallCheckbox');
-    const phoneNrInput = document.getElementById('Pn');
+  const cartItemCount = document.getElementById('cart-item-count');
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const largeCheckbox = document.getElementById('largeCheckbox');
+  const mediumCheckbox = document.getElementById('mediumCheckbox');
+  const smallCheckbox = document.getElementById('smallCheckbox');
+  const phoneNrInput = document.getElementById('Pn');
 
-    // Check if the phoneNrInput is empty
-    if (phoneNrInput.value.trim() === '') {
-      alert('Please fill in the PhoneNr field');
-      return;
-    }
-
-    // Check if no checkbox is selected
-    if (!largeCheckbox.checked && !mediumCheckbox.checked && !smallCheckbox.checked) {
-      alert('Please select a size');
-      return;
-    }
-
-    // Add the item to the cart
-    cartItems.push({
-      name: itemName,
-      price: itemPrice
-    });
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    cartItemCount.textContent = cartItems.length;
-    alert('Product added to cart!');
+  // Check if the phoneNrInput is empty
+  if (phoneNrInput.value.trim() === '') {
+    alert('Please fill in the PhoneNr field');
+    return;
   }
+
+  // Check if no checkbox is selected
+  if (!largeCheckbox.checked && !mediumCheckbox.checked && !smallCheckbox.checked) {
+    alert('Please select a size');
+    return;
+  }
+
+  // Generate a unique ID for each item
+  const itemId = new Date().getTime();
+
+  // Add the item to the cart with additional information
+  cartItems.push({
+    id: itemId,
+    name: itemName,
+    price: itemPrice,
+    quantity: 1, // Assuming initially one item is added
+  });
+
+  localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  cartItemCount.textContent = cartItems.length;
+
+  alert('Product added to cart!');
+}
+
 
   </script>
 
