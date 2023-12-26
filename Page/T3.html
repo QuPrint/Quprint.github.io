@@ -155,13 +155,13 @@
             </p>
             <br>
             <br>
-            <div class="checkbox-container">
-              <input type="radio" id="largeCheckbox" name="size" value="Large">
-              <label for="largeCheckbox">1st</label>  5kr<br>
-              <input type="radio" id="mediumCheckbox" name="size" value="Medium">
-              <label for="mediumCheckbox">2st</label> 10kr<br>
-              <input type="radio" id="smallCheckbox" name="size" value="Small">
-              <label for="smallCheckbox">5st</label>  15kr
+           <div class="checkbox-container">
+    <input type="radio" id="largeCheckbox" name="size" value="Large" onclick="setPrice(10)">
+    <label for="largeCheckbox">1st 10kr</label>
+    <input type="radio" id="mediumCheckbox" name="size" value="Medium" onclick="setPrice(18)">
+    <label for="mediumCheckbox">2st 18kr</label>
+    <input type="radio" id="smallCheckbox" name="size" value="Small" onclick="setPrice(40)">
+    <label for="smallCheckbox">5st 40kr</label>
             </div>
             <div class="file-upload">
               <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
@@ -298,7 +298,9 @@
       alert('Product added to cart!');
     }
 
-
+   function setPrice(price) {
+      document.getElementById('price-display').textContent = `${price} Kr`;
+    }
   </script>
 
   <footer class="container-fluid footer_section">
