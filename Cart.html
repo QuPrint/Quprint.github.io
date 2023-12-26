@@ -165,7 +165,7 @@
       <div class="coupon-form">
         <label for="coupon-code">Coupon Code:</label>
         <input type="text" id="coupon-code" name="coupon-code" placeholder="">
-        <button type="button" onclick="applyCoupon()">Apply Coupon</button>
+        <button type="button" onclick="">Apply Coupon</button>
       </div>
     </div>
   </section>
@@ -213,22 +213,6 @@ window.onload = updateCart;
       cartItems.splice(index, 1);
       updateCart();
     }
-
-    // Function to apply a coupon
-     function applyCoupon() {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const couponInput = document.getElementById('couponInput');
-    const couponCode = couponInput.value.trim();
-
-    // Check if the coupon code is "eweb"
-    if (couponCode.toLowerCase() === 'eweb') {
-      alert('Coupon applied: 25% off!');
-      // You can add logic to update the display or handle the coupon here
-    } else {
-      alert('Invalid coupon code');
-      // You can add logic for other coupons or display a message for invalid codes
-    }
-  }
 
     function placeOrder() {
       location.href = 'Infos.html';
