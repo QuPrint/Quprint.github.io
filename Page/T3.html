@@ -257,7 +257,7 @@
 
     function addToCart(itemName, itemPrice) {
   const cartItemCount = document.getElementById('cart-item-count');
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   const largeCheckbox = document.getElementById('largeCheckbox');
   const mediumCheckbox = document.getElementById('mediumCheckbox');
   const smallCheckbox = document.getElementById('smallCheckbox');
@@ -276,23 +276,27 @@
     return;
   }
 
-  // Use the phone number as the ID
-  const itemId = phoneNr;
+  // Check if the item with the same ID (phone number) is already in the cart
+  const existingItem = cartItems.find(item => item.id === phoneNr);
 
-  // Add the item to the cart with additional information
-  cartItems.push({
-    id: itemId,
-    name: itemName,
-    price: itemPrice,
-    quantity: 1, // Assuming initially one item is added
-  });
+  if (existingItem) {
+    // If the item exists, increment the quantity
+    existingItem.quantity++;
+  } else {
+    // If the item does not exist, add it to the cart
+    cartItems.push({
+      id: phoneNr,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1,
+    });
+  }
 
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
   cartItemCount.textContent = cartItems.length;
 
   alert('Product added to cart!');
 }
-
 
   </script>
 
