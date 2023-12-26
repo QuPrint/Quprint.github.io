@@ -256,6 +256,19 @@ window.onload = updateCart;
     alert('Invalid item index.');
   }
 }
+
+     function applyCoupon() {
+    const couponCodeInput = document.getElementById('coupon-code');
+    const couponCode = couponCodeInput.value.trim();
+
+    if (couponCode !== '') {
+      // Store coupon information in localStorage
+      localStorage.setItem('couponCode', couponCode);
+      alert('Coupon applied successfully!');
+    } else {
+      alert('Please enter a valid coupon code.');
+    }
+  }
   </script>
 
   <footer class="container-fluid footer_section">
