@@ -1,16 +1,6 @@
 <!-- Add this container to display item details -->
 <div id="infos-container"></div>
-<script
-   window.onload = function () {
-    // ... (your existing logic)
-
-    // Check if the coupon is applied and display the appropriate message
-    const couponCode = /* Get the coupon code from wherever it's stored */;
-    if (couponCode && couponCode.toLowerCase() === 'eweb') {
-      document.getElementById('couponInfo').textContent = '25% off!';
-    }
-  };
-  
+<script>
   function displayItemDetails() {
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
   const infosContainer = document.getElementById('infos-container');
