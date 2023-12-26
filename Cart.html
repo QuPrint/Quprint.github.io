@@ -260,6 +260,18 @@ window.onload = updateCart;
       }
     }).render('#paypal-button-container');
     window.onload = updateCart;
+    function deleteItem(index) {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  // Check if the index is valid
+  if (index >= 0 && index < cartItems.length) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCart(); // Update the cart display after deletion
+  } else {
+    alert('Invalid item index.');
+  }
+}
   </script>
 
   <footer class="container-fluid footer_section">
