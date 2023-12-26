@@ -162,7 +162,7 @@
     <label for="mediumCheckbox">2st 18kr</label>
     <input type="radio" id="smallCheckbox" name="size" value="Small" onclick="setPrice(40)">
     <label for="smallCheckbox">5st 40kr</label>
-            </div>
+  </div>
             <div class="file-upload">
               <input type="text" id="Pn" name="Pn" value="" placeholder="PhoneNr" required><br>
             </div>
@@ -254,8 +254,7 @@
          const cartItemCount = document.getElementById('cart-item-count');
          cartItemCount.textContent = cartItems.length;
      };
-
-      function addToCart(itemName, itemPrice) {
+function addToCart(itemName, itemPrice) {
       const cartItemCount = document.getElementById('cart-item-count');
       let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const phoneNrInput = document.getElementById('Pn');
@@ -279,9 +278,6 @@
       cartItemCount.textContent = cartItems.length;
 
       alert('Product added to cart!');
-    }
-   function setPrice(price) {
-      document.getElementById('price-display').textContent = `${price} Kr`;
     }
   </script>
 
