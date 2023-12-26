@@ -239,7 +239,7 @@
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-    function addToCart(itemName, itemPrice) {
+   function addToCart(itemName, itemPrice) {
     const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const name1Input = document.getElementById('Pn');
@@ -251,8 +251,11 @@
       return;
     }
 
+    const id = `${name1Input.value.trim()}, ${name2Input.value.trim()}`;
+
     // Add the item to the cart
     cartItems.push({
+      id: id,
       name: itemName,
       price: itemPrice,
       quantity: 1, // Always set the quantity to 1
