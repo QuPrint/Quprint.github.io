@@ -255,7 +255,7 @@
          cartItemCount.textContent = cartItems.length;
      };
 
-    function addToCart(itemName, itemPrice) {
+     function addToCart(itemName, itemPrice) {
       const cartItemCount = document.getElementById('cart-item-count');
       let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const largeCheckbox = document.getElementById('largeCheckbox');
@@ -286,7 +286,7 @@
 
       // Always add a new entry for each selection
       cartItems.push({
-        id: phoneNr + '_' + Date.now(), // Use a combination of phoneNr and a timestamp as the ID
+        id: phoneNr, // Use only the phone number as the ID
         name: itemName,
         price: itemPrice,
         quantity: selectedQuantity,
@@ -297,6 +297,7 @@
 
       alert('Product added to cart!');
     }
+
 
   </script>
 
