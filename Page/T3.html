@@ -284,27 +284,20 @@
     return;
   }
 
-  // Check if the item with the same ID (phone number) is already in the cart
-  const existingItem = cartItems.find(item => item.id === phoneNr);
-
-  if (existingItem) {
-    // If the item exists, update the quantity
-    existingItem.quantity += selectedQuantity;
-  } else {
-    // If the item does not exist, add it to the cart
-    cartItems.push({
-      id: phoneNr,
-      name: itemName,
-      price: itemPrice,
-      quantity: selectedQuantity,
-    });
-  }
+  // Add each selection as a separate item
+  cartItems.push({
+    id: phoneNr + '_' + selectedQuantity, // Use a combination of phoneNr and quantity as the ID
+    name: itemName,
+    price: itemPrice,
+    quantity: selectedQuantity,
+  });
 
   localStorage.setItem('cartItems', JSON.stringify(cartItems));
   cartItemCount.textContent = cartItems.length;
 
   alert('Product added to cart!');
 }
+
   </script>
 
   <footer class="container-fluid footer_section">
