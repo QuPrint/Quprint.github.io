@@ -270,8 +270,16 @@
     return;
   }
 
-  // Check if no checkbox is selected
-  if (!largeCheckbox.checked && !mediumCheckbox.checked && !smallCheckbox.checked) {
+  let selectedQuantity = 0;
+
+  // Check which checkbox is selected and set the quantity accordingly
+  if (largeCheckbox.checked) {
+    selectedQuantity = 1;
+  } else if (mediumCheckbox.checked) {
+    selectedQuantity = 2;
+  } else if (smallCheckbox.checked) {
+    selectedQuantity = 5;
+  } else {
     alert('Please select a size');
     return;
   }
@@ -280,15 +288,15 @@
   const existingItem = cartItems.find(item => item.id === phoneNr);
 
   if (existingItem) {
-    // If the item exists, increment the quantity
-    existingItem.quantity++;
+    // If the item exists, update the quantity
+    existingItem.quantity += selectedQuantity;
   } else {
     // If the item does not exist, add it to the cart
     cartItems.push({
       id: phoneNr,
       name: itemName,
       price: itemPrice,
-      quantity: 1,
+      quantity: selectedQuantity,
     });
   }
 
@@ -297,7 +305,6 @@
 
   alert('Product added to cart!');
 }
-
   </script>
 
   <footer class="container-fluid footer_section">
