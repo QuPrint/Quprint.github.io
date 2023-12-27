@@ -213,10 +213,10 @@
 
     const paypalButtonContainer = document.getElementById('paypal-button-container');
     paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
-  }
 
-  // Call updateCart function when the page loads
-  window.onload = updateCart;
+    // Remove the coupon when an item is added or deleted
+    updateCouponStatus();
+  }
 
   // Function to delete an item from the cart
   function deleteItem(index) {
@@ -230,55 +230,23 @@
     } else {
       alert('Invalid item index.');
     }
-
-    // Remove the coupon when an item is deleted
-    localStorage.removeItem('ewebCouponApplied');
   }
 
-  function placeOrder() {
-    location.href = 'Infos.html';
-    // You can redirect to another page or perform other actions
+  // Existing placeOrder function...
+
+  // Existing applyCoupon function...
+
+  function updateCouponStatus() {
+    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    if (cartItems.length === 0 && ewebCouponApplied === 'true') {
+      localStorage.removeItem('ewebCouponApplied');
+    }
   }
 
   // Call updateCart function when the page loads
-  paypal.Buttons({
-    createOrder: function (data, actions) {
-      // Set up the transaction
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: total.toFixed(2),
-            currency_code: 'SEK',
-          },
-        }],
-      });
-    },
-    onApprove: function (data, actions) {
-      // Capture the funds from the transaction
-      return actions.order.capture().then(function (details) {
-        // Call your server to save the transaction
-        alert('Transaction completed by ' + details.payer.name.given_name);
-        // Clear the cart or perform other actions
-        cartItems.length = 0;
-        updateCart();
-      });
-    }
-  }).render('#paypal-button-container');
+  window.onload = updateCart;
 
-  function applyCoupon() {
-    const couponCodeInput = document.getElementById('coupon-code');
-    const couponCode = couponCodeInput.value.trim();
-
-    if (couponCode === 'eweb') {
-      // Store a flag to indicate the "eweb" coupon
-      localStorage.setItem('ewebCouponApplied', 'true');
-      alert('Coupon applied successfully!');
-    } else {
-      alert('Please enter a valid coupon code.');
-    }
-
-    updateCart(); // Update the cart with the discount
-  }
+  // Existing PayPal buttons script...
 </script>
 
 
