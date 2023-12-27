@@ -257,7 +257,20 @@
       });
     }
   }).render('#paypal-button-container');
+  function applyCoupon() {
+      const couponCodeInput = document.getElementById('coupon-code');
+      const couponCode = couponCodeInput.value.trim().toLowerCase();
 
+      // Check if the entered coupon code is "eweb"
+      if (couponCode === 'eweb') {
+        // Apply a 25% discount
+        total *= 0.75;
+        updateCart(); // Update the cart display after applying the coupon
+        alert('Coupon applied: 25% discount!');
+      } else {
+        alert('Invalid coupon code');
+      }
+    }
 </script>
 
 
