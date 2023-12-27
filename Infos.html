@@ -3,36 +3,37 @@
 <div id="infos-container"></div>
 <script>
   function displayItemDetails() {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const appliedCouponCode = localStorage.getItem('appliedCouponCode');
 
-    const infosContainer = document.getElementById('infos-container');
-    infosContainer.innerHTML = ''; // Clear previous content
+  const infosContainer = document.getElementById('infos-container');
+  infosContainer.innerHTML = ''; // Clear previous content
 
-    cartItems.forEach((item) => {
-      const itemDetails = document.createElement('div');
-      itemDetails.innerHTML = `
-        <p>ID: ${item.id}</p>
-        <p>Item: ${item.name}</p>
-        <p>Quantity: ${item.quantity}</p>
-        <p>Price: ${item.price.toFixed(2)} Kr</p>
-        <hr>
-      `;
-      infosContainer.appendChild(itemDetails);
-    });
+  cartItems.forEach((item) => {
+    const itemDetails = document.createElement('div');
+    itemDetails.innerHTML = `
+      <p>ID: ${item.id}</p>
+      <p>Item: ${item.name}</p>
+      <p>Quantity: ${item.quantity}</p>
+      <p>Price: ${item.price.toFixed(2)} Kr</p>
+      <hr>
+    `;
+    infosContainer.appendChild(itemDetails);
+  });
 
-    // Display coupon information only if "eweb" coupon applied
-    if (ewebCouponApplied === 'true') {
-      const couponDetails = document.createElement('div');
-      couponDetails.innerHTML = `
-        <p>Coupon Code: The form</p>
-        <p>Discount: 25%</p>
-        <hr>
-      `;
-      infosContainer.appendChild(couponDetails);
-    }
+  // Display coupon information only if a coupon code is applied
+  if (appliedCouponCode) {
+    const couponDetails = document.createElement('div');
+    couponDetails.innerHTML = `
+      <p>Coupon Code: ${appliedCouponCode}</p>
+      <p>Discount: 25%</p>
+      <hr>
+    `;
+    infosContainer.appendChild(couponDetails);
   }
+}
 
-  // Call this function when the Infos.html page loads
-  window.onload = displayItemDetails;
+// Call this function when the Infos.html page loads
+window.onload = displayItemDetails;
+
 </script>
