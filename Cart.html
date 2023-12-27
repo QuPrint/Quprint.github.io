@@ -178,16 +178,12 @@
     const couponCode = couponCodeInput.value.trim();
 
     if (couponCode === 'eweb') {
+      couponPercentage = 25;
       localStorage.setItem('ewebCouponApplied', '25%, eweb');
-
-      // Set timestamp when the coupon is applied
-      const currentTime = new Date().getTime();
-      localStorage.setItem('couponAppliedTimestamp', currentTime);
-
       alert('Coupon applied successfully!');
     } else {
+      couponPercentage = 0;
       localStorage.removeItem('ewebCouponApplied');
-      localStorage.removeItem('couponAppliedTimestamp');
       alert('Invalid coupon code.');
     }
 
@@ -209,19 +205,6 @@
 
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    // Check if the coupon has expired
-    const couponAppliedTimestamp = localStorage.getItem('couponAppliedTimestamp');
-    if (couponAppliedTimestamp) {
-      const currentTime = new Date().getTime();
-      const elapsedTime = currentTime - parseInt(couponAppliedTimestamp);
-
-      // If more than 2 minutes have passed, remove the coupon
-      if (elapsedTime > 2 * 60 * 1000) {
-        localStorage.removeItem('ewebCouponApplied');
-        localStorage.removeItem('couponAppliedTimestamp');
-      }
-    }
-
     cartItems.forEach((item, index) => {
       const cartItemDiv = document.createElement('div');
       cartItemDiv.className = 'cart-item';
@@ -233,7 +216,7 @@
       total += item.price;
     });
 
-    // Apply coupon discount if not expired
+    // Apply coupon discount
     const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
     const discount = (total * couponPercentage) / 100;
     const discountedTotal = total - discount;
