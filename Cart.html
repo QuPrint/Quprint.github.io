@@ -173,115 +173,105 @@
   </section>
 
 <script>
-  
-  function applyCoupon() {
-    const couponCodeInput = document.getElementById('coupon-code');
-    const couponCode = couponCodeInput.value.trim();
+ // Clear coupon code on page load/refresh
+localStorage.removeItem('ewebCouponApplied');
 
-    if (couponCode === 'eweb') {
-      couponPercentage = 25;
-      localStorage.setItem('ewebCouponApplied', '25%, eweb');
-      alert('Coupon applied successfully!');
-    } else {
-      couponPercentage = 0;
-      localStorage.removeItem('ewebCouponApplied');
-      alert('Invalid coupon code.');
-    }
+// Load cart items from localStorage
+const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+// Initialize total variable
+let total = 0;
 
-    updateCart();
+function applyCoupon() {
+  const couponCodeInput = document.getElementById('coupon-code');
+  const couponCode = couponCodeInput.value.trim();
+
+  if (couponCode === 'eweb') {
+    couponPercentage = 25;
+    localStorage.setItem('ewebCouponApplied', '25%, eweb');
+    alert('Coupon applied successfully!');
+  } else {
+    couponPercentage = 0;
+    localStorage.removeItem('ewebCouponApplied');
+    alert('Invalid coupon code.');
   }
-  // Load cart items from localStorage
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-  // Initialize total variable
+  updateCart();
+}
+
+function updateCart() {
+  const cartItemsDiv = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+
   let total = 0;
 
-   function updateCart() {
-    const cartItemsDiv = document.getElementById('cart-items');
-    const cartTotal = document.getElementById('cart-total');
+  cartItemsDiv.innerHTML = '';
 
-    let total = 0;
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
-    cartItemsDiv.innerHTML = '';
+  cartItems.forEach((item, index) => {
+    const cartItemDiv = document.createElement('div');
+    cartItemDiv.className = 'cart-item';
+    cartItemDiv.innerHTML = `
+        <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
+        <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+    `;
+    cartItemsDiv.appendChild(cartItemDiv);
+    total += item.price;
+  });
 
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  // Apply coupon discount
+  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
+  const discount = (total * couponPercentage) / 100;
+  const discountedTotal = total - discount;
 
-    cartItems.forEach((item, index) => {
-      const cartItemDiv = document.createElement('div');
-      cartItemDiv.className = 'cart-item';
-      cartItemDiv.innerHTML = `
-          <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
-          <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
-      `;
-      cartItemsDiv.appendChild(cartItemDiv);
-      total += item.price;
+  cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
+
+  const orderButton = document.getElementById('order-button');
+  orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
+
+  const paypalButtonContainer = document.getElementById('paypal-button-container');
+  paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
+}
+
+function deleteItem(index) {
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+  if (index >= 0 && index < cartItems.length) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    updateCart();
+  } else {
+    alert('Invalid item index.');
+  }
+
+  localStorage.removeItem('ewebCouponApplied');
+}
+
+function placeOrder() {
+  location.href = 'Infos.html';
+}
+
+window.onload = updateCart;
+
+paypal.Buttons({
+  createOrder: function (data, actions) {
+    return actions.order.create({
+      purchase_units: [{
+        amount: {
+          value: total.toFixed(2),
+          currency_code: 'SEK',
+        },
+      }],
     });
-
-    // Apply coupon discount
-    const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
-    const discount = (total * couponPercentage) / 100;
-    const discountedTotal = total - discount;
-
-    cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
-
-    const orderButton = document.getElementById('order-button');
-    orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-
-    const paypalButtonContainer = document.getElementById('paypal-button-container');
-    paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
+  },
+  onApprove: function (data, actions) {
+    return actions.order.capture().then(function (details) {
+      alert('Transaction completed by ' + details.payer.name.given_name);
+      cartItems.length = 0;
+      updateCart();
+    });
   }
-
-  // Call updateCart function when the page loads
-  window.onload = updateCart;
-
-  // Function to delete an item from the cart
-  function deleteItem(index) {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-    // Check if the index is valid
-    if (index >= 0 && index < cartItems.length) {
-      cartItems.splice(index, 1);
-      localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      updateCart(); // Update the cart display after deletion
-    } else {
-      alert('Invalid item index.');
-    }
-
-    // Remove the coupon when an item is deleted
-    localStorage.removeItem('ewebCouponApplied');
-  }
-
-  function placeOrder() {
-    location.href = 'Infos.html';
-    // You can redirect to another page or perform other actions
-  }
-
-  // Call updateCart function when the page loads
-  paypal.Buttons({
-    createOrder: function (data, actions) {
-      // Set up the transaction
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: total.toFixed(2),
-            currency_code: 'SEK',
-          },
-        }],
-      });
-    },
-    onApprove: function (data, actions) {
-      // Capture the funds from the transaction
-      return actions.order.capture().then(function (details) {
-        // Call your server to save the transaction
-        alert('Transaction completed by ' + details.payer.name.given_name);
-        // Clear the cart or perform other actions
-        cartItems.length = 0;
-        updateCart();
-      });
-    }
-  }).render('#paypal-button-container');
-
- 
+}).render('#paypal-button-container');
 </script>
 
 
