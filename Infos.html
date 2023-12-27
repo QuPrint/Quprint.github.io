@@ -8,7 +8,6 @@
   let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   function displayItemDetails() {
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
 
     const infosContainer = document.getElementById('infos-container');
     infosContainer.innerHTML = ''; // Clear previous content
@@ -25,33 +24,8 @@
       infosContainer.appendChild(itemDetails);
     });
 
-    // Display coupon information only if "eweb" coupon applied
-    if (ewebCouponApplied === 'true') {
-      const couponDetails = document.createElement('div');
-      couponDetails.innerHTML = `
-        <p>Coupon Code: The form</p>
-        <p>Discount: 25%</p>
-        <hr>
-      `;
-      infosContainer.appendChild(couponDetails);
-    }
-
-    // Remove the coupon when there is a change in the cart
-    updateCouponStatus();
-  }
-
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
-
-  // Existing window.onload and other script...
-
-  function updateCouponStatus() {
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
-    if (cartItems.length === 0 && ewebCouponApplied === 'true') {
-      localStorage.removeItem('ewebCouponApplied');
-    }
-  }
-
   // Listen for changes in localStorage (cartItems)
   window.addEventListener('storage', function (e) {
     if (e.key === 'cartItems') {
