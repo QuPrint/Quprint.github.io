@@ -4,9 +4,16 @@
 <script>
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
     const infosContainer = document.getElementById('infos-container');
     infosContainer.innerHTML = ''; // Clear previous content
+
+    // Retrieve coupon information
+    const couponInfo = localStorage.getItem('ewebCouponApplied');
+    if (couponInfo) {
+      const couponDetails = document.createElement('p');
+      couponDetails.textContent = `Coupon: ${couponInfo}`;
+      infosContainer.appendChild(couponDetails);
+    }
 
     cartItems.forEach((item) => {
       const itemDetails = document.createElement('div');
@@ -19,7 +26,6 @@
       `;
       infosContainer.appendChild(itemDetails);
     });
-
   }
 
   // Call this function when the Infos.html page loads
