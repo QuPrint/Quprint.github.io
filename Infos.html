@@ -4,6 +4,7 @@
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    const ewebCouponTimestamp = localStorage.getItem('ewebCouponTimestamp');
 
     const infosContainer = document.getElementById('infos-container');
     infosContainer.innerHTML = ''; // Clear previous content
@@ -20,15 +21,26 @@
       infosContainer.appendChild(itemDetails);
     });
 
-    // Display coupon information only if "eweb" coupon applied
-    if (ewebCouponApplied === 'true') {
-      const couponDetails = document.createElement('div');
-      couponDetails.innerHTML = `
-        <p>Coupon Code: ${ewebCouponApplied}</p>
-        <p>Discount: 25%</p>
-        <hr>
-      `;
-      infosContainer.appendChild(couponDetails);
+    // Check if the "eweb" coupon is applied and still valid
+    if (ewebCouponApplied === 'true' && ewebCouponTimestamp) {
+      const currentTimestamp = new Date().getTime();
+      const expirationTime = 2 * 60 * 1000; // 2 minutes in milliseconds
+
+      if (currentTimestamp - parseInt(ewebCouponTimestamp) < expirationTime) {
+        // Coupon is still valid
+        const couponDetails = document.createElement('div');
+        couponDetails.innerHTML = `
+          <p>Coupon Code: ${ewebCouponApplied}</p>
+          <p>Discount: 25%</p>
+          <hr>
+        `;
+        infosContainer.appendChild(couponDetails);
+      } else {
+        // Coupon has expired, remove coupon information
+        localStorage.removeItem('ewebCouponApplied');
+        localStorage.removeItem('ewebCouponTimestamp');
+        alert('Coupon has expired and will be removed.');
+      }
     }
   }
 
