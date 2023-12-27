@@ -172,7 +172,7 @@
     </div>
   </section>
 
- <script>
+<script>
   // Load cart items from localStorage
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
@@ -273,10 +273,11 @@
       // Store a flag to indicate the "eweb" coupon
       localStorage.setItem('ewebCouponApplied', 'true');
       alert('Coupon applied successfully!');
-      updateCart(); // Update the cart with the discount
     } else {
       alert('Please enter a valid coupon code.');
     }
+
+    updateCart(); // Update the cart with the discount
   }
 </script>
 
