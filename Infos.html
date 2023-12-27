@@ -2,10 +2,12 @@
 <title>Quprint</title>
 <div id="infos-container"></div>
 <!-- Existing script ... -->
+<!-- Existing script ... -->
 
 <script>
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
   function displayItemDetails() {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
     const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
 
     const infosContainer = document.getElementById('infos-container');
@@ -34,7 +36,7 @@
       infosContainer.appendChild(couponDetails);
     }
 
-    // Remove the coupon when an item is added or deleted
+    // Remove the coupon when there is a change in the cart
     updateCouponStatus();
   }
 
@@ -49,6 +51,17 @@
       localStorage.removeItem('ewebCouponApplied');
     }
   }
+
+  // Listen for changes in localStorage (cartItems)
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'cartItems') {
+      cartItems = JSON.parse(e.newValue) || [];
+      displayItemDetails();
+    }
+  });
 </script>
+
+<!-- Existing script ... -->
+
 
 <!-- Existing script ... -->
