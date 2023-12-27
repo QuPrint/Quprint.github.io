@@ -13,6 +13,10 @@
       const couponDetails = document.createElement('p');
       couponDetails.textContent = `Coupon: ${couponInfo}`;
       infosContainer.appendChild(couponDetails);
+    } else {
+      const noCouponDetails = document.createElement('p');
+      noCouponDetails.textContent = 'No Coupon';
+      infosContainer.appendChild(noCouponDetails);
     }
 
     cartItems.forEach((item) => {
