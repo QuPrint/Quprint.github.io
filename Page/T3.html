@@ -180,12 +180,13 @@
     </div>
   </section>
 
- <script>
+<script>
   let selectedQuantity = 0;
   let selectedPrice = 0;
 
-  function setPrice(price) {
+  function setPriceAndQuantity(price, quantity) {
     selectedPrice = price;
+    selectedQuantity = quantity;
   }
 
   function addToCart(itemName) {
