@@ -265,20 +265,6 @@
     }
   }).render('#paypal-button-container');
 
-  function applyCoupon() {
-    const couponCodeInput = document.getElementById('coupon-code');
-    const couponCode = couponCodeInput.value.trim();
-
-    if (couponCode === 'eweb') {
-      // Store a flag to indicate the "eweb" coupon
-      localStorage.setItem('ewebCouponApplied', 'true');
-      alert('Coupon applied successfully!');
-    } else {
-      alert('Please enter a valid coupon code.');
-    }
-
-    updateCart(); // Update the cart with the discount
-  }
 </script>
 
 
