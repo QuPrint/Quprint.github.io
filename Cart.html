@@ -173,6 +173,7 @@
   </section>
 
 <script>
+  
   function applyCoupon() {
     const couponCodeInput = document.getElementById('coupon-code');
     const couponCode = couponCodeInput.value.trim();
@@ -280,7 +281,11 @@
     }
   }).render('#paypal-button-container');
 
-
+  localStorage.removeItem('ewebCouponApplied');
+  localStorage.removeItem('cartItems');
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  // Initialize total variable
+  let total = 0;
 </script>
 
 
