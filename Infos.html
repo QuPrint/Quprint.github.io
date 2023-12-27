@@ -21,28 +21,20 @@
       infosContainer.appendChild(itemDetails);
     });
 
-    // Check if the "eweb" coupon is applied and still valid
-    if (ewebCouponApplied === 'true' && ewebCouponTimestamp) {
-      const currentTimestamp = new Date().getTime();
-      const expirationTime = 2 * 60 * 1000; // 2 minutes in milliseconds
+   if (ewebCouponApplied === 'true' && ewebCouponTimestamp) {
+  const currentTimestamp = new Date().getTime();
+  const expirationTime = 2 * 60 * 1000; // 2 minutes in milliseconds
 
-      if (currentTimestamp - parseInt(ewebCouponTimestamp) < expirationTime) {
-        // Coupon is still valid
-        const couponDetails = document.createElement('div');
-        couponDetails.innerHTML = `
-          <p>Coupon Code: ${ewebCouponApplied}</p>
-          <p>Discount: 25%</p>
-          <hr>
-        `;
-        infosContainer.appendChild(couponDetails);
-      } else {
-        // Coupon has expired, remove coupon information
-        localStorage.removeItem('ewebCouponApplied');
-        localStorage.removeItem('ewebCouponTimestamp');
-        alert('Coupon has expired and will be removed.');
-      }
-    }
+  if (currentTimestamp - parseInt(ewebCouponTimestamp) < expirationTime) {
+    // Coupon is still valid
+    // ...
+  } else {
+    // Coupon has expired, remove coupon information
+    localStorage.removeItem('ewebCouponApplied');
+    localStorage.removeItem('ewebCouponTimestamp');
+    alert('Coupon has expired and will be removed.');
   }
+}
 
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
