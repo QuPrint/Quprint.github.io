@@ -259,13 +259,15 @@ window.onload = updateCart;
   }
 }
 
-      function applyCoupon() {
+     function applyCoupon() {
     const couponCodeInput = document.getElementById('coupon-code');
     const couponCode = couponCodeInput.value.trim();
 
     if (couponCode === 'eweb') {
-      // Store a flag or value to indicate the "eweb" coupon
+      // Store a flag and timestamp to indicate the "eweb" coupon
+      const timestamp = new Date().getTime();
       localStorage.setItem('ewebCouponApplied', 'true');
+      localStorage.setItem('ewebCouponTimestamp', timestamp.toString());
       alert('Coupon applied successfully!');
     } else {
       alert('Please enter a valid coupon code.');
