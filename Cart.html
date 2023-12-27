@@ -173,13 +173,29 @@
   </section>
 
 <script>
+  function applyCoupon() {
+    const couponCodeInput = document.getElementById('coupon-code');
+    const couponCode = couponCodeInput.value.trim();
+
+    if (couponCode === 'eweb') {
+      couponPercentage = 25;
+      localStorage.setItem('ewebCouponApplied', '25%, eweb');
+      alert('Coupon applied successfully!');
+    } else {
+      couponPercentage = 0;
+      localStorage.removeItem('ewebCouponApplied');
+      alert('Invalid coupon code.');
+    }
+
+    updateCart();
+  }
   // Load cart items from localStorage
   const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   // Initialize total variable
   let total = 0;
 
-  function updateCart() {
+   function updateCart() {
     const cartItemsDiv = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
 
@@ -200,8 +216,11 @@
       total += item.price;
     });
 
+    // Apply coupon discount
+    const discount = (total * couponPercentage) / 100;
+    const discountedTotal = total - discount;
 
-    cartTotal.textContent = ` ${total.toFixed(2)} Kr`;
+    cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
 
     const orderButton = document.getElementById('order-button');
     orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
