@@ -217,6 +217,7 @@
     });
 
     // Apply coupon discount
+    const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
     const discount = (total * couponPercentage) / 100;
     const discountedTotal = total - discount;
 
