@@ -263,11 +263,9 @@ window.onload = updateCart;
     const couponCodeInput = document.getElementById('coupon-code');
     const couponCode = couponCodeInput.value.trim();
 
-    if (couponCode === 'eweb') {
-      // Store a flag and timestamp to indicate the "eweb" coupon
-      const timestamp = new Date().getTime();
-      localStorage.setItem('ewebCouponApplied', 'true');
-      localStorage.setItem('ewebCouponTimestamp', timestamp.toString());
+    if (couponCode !== '') {
+      // Store coupon information in localStorage
+      localStorage.setItem('couponCode', couponCode);
       alert('Coupon applied successfully!');
     } else {
       alert('Please enter a valid coupon code.');
