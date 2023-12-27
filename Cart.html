@@ -171,10 +171,11 @@
 
     </div>
   </section>
+<!-- Existing script ... -->
 
 <script>
   // Load cart items from localStorage
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   // Initialize total variable
   let total = 0;
@@ -183,18 +184,16 @@
     const cartItemsDiv = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
 
-    let total = 0;
+    total = 0;
 
     cartItemsDiv.innerHTML = '';
-
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     cartItems.forEach((item, index) => {
       const cartItemDiv = document.createElement('div');
       cartItemDiv.className = 'cart-item';
       cartItemDiv.innerHTML = `
-          <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
-          <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+        <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
+        <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
       `;
       cartItemsDiv.appendChild(cartItemDiv);
       total += item.price;
@@ -214,14 +213,12 @@
     const paypalButtonContainer = document.getElementById('paypal-button-container');
     paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
 
-    // Remove the coupon when an item is added or deleted
+    // Remove the coupon when there is a change in the cart
     updateCouponStatus();
   }
 
   // Function to delete an item from the cart
   function deleteItem(index) {
-    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
     // Check if the index is valid
     if (index >= 0 && index < cartItems.length) {
       cartItems.splice(index, 1);
@@ -243,11 +240,21 @@
     }
   }
 
+  // Listen for changes in localStorage (cartItems)
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'cartItems') {
+      cartItems = JSON.parse(e.newValue) || [];
+      updateCart();
+    }
+  });
+
   // Call updateCart function when the page loads
   window.onload = updateCart;
 
   // Existing PayPal buttons script...
 </script>
+
+<!-- Existing script ... -->
 
 
   <footer class="container-fluid footer_section">
