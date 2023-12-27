@@ -281,9 +281,10 @@ function applyCoupon() {
 }
 
 // Add an event listener to remove the coupon when leaving the cart page
-window.addEventListener('beforeunload', function () {
+window.addEventListener('unload', function () {
   localStorage.removeItem('appliedCouponCode');
 });
+
 
 
 </script>
