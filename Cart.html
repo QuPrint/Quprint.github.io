@@ -265,7 +265,7 @@
     }
   }).render('#paypal-button-container');
 
- function applyCoupon() {
+function applyCoupon() {
   const couponCodeInput = document.getElementById('coupon-code');
   const couponCode = couponCodeInput.value.trim();
 
@@ -279,6 +279,12 @@
 
   updateCart(); // Update the cart with the discount
 }
+
+// Add an event listener to remove the coupon when leaving the cart page
+window.addEventListener('beforeunload', function () {
+  localStorage.removeItem('appliedCouponCode');
+});
+
 
 </script>
 
