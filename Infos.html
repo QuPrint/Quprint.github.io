@@ -1,6 +1,8 @@
 <link rel="icon" type="image/x-icon" href="images/favicon.png">
 <title>Quprint</title>
 <div id="infos-container"></div>
+<!-- Existing script ... -->
+
 <script>
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
@@ -31,8 +33,22 @@
       `;
       infosContainer.appendChild(couponDetails);
     }
+
+    // Remove the coupon when an item is added or deleted
+    updateCouponStatus();
   }
 
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
+
+  // Existing window.onload and other script...
+
+  function updateCouponStatus() {
+    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    if (cartItems.length === 0 && ewebCouponApplied === 'true') {
+      localStorage.removeItem('ewebCouponApplied');
+    }
+  }
 </script>
+
+<!-- Existing script ... -->
