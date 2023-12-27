@@ -165,7 +165,7 @@
     <div class="coupon-form">
   <label for="coupon-code">Coupon Code:</label>
   <input type="text" id="coupon-code" name="coupon-code" placeholder="">
-  <button type="button" onclick="applyCoupon()">Apply Coupon</button>
+  <button type="button" onclick="">Apply Coupon</button>
 </div>
 
 
@@ -199,11 +199,6 @@
       total += item.price;
     });
 
-    // Update total with coupon discount if applied
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
-    if (ewebCouponApplied === 'true') {
-      total *= 0.75; // Apply a 25% discount
-    }
 
     cartTotal.textContent = ` ${total.toFixed(2)} Kr`;
 
@@ -217,6 +212,9 @@
     updateCouponStatus();
   }
 
+  function placeOrder(){
+    window.location.href = 'Infos.html';
+  }
   // Function to delete an item from the cart
   function deleteItem(index) {
     // Check if the index is valid
@@ -233,12 +231,6 @@
 
   // Existing applyCoupon function...
 
-  function updateCouponStatus() {
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
-    if (cartItems.length === 0 && ewebCouponApplied === 'true') {
-      localStorage.removeItem('ewebCouponApplied');
-    }
-  }
 
   // Listen for changes in localStorage (cartItems)
   window.addEventListener('storage', function (e) {
