@@ -165,17 +165,16 @@
     <div class="coupon-form">
   <label for="coupon-code">Coupon Code:</label>
   <input type="text" id="coupon-code" name="coupon-code" placeholder="">
-  <button type="button" onclick="">Apply Coupon</button>
+  <button type="button" onclick="applyCoupon()">Apply Coupon</button>
 </div>
 
 
     </div>
   </section>
-<!-- Existing script ... -->
 
 <script>
   // Load cart items from localStorage
-  let cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
   // Initialize total variable
   let total = 0;
@@ -184,21 +183,28 @@
     const cartItemsDiv = document.getElementById('cart-items');
     const cartTotal = document.getElementById('cart-total');
 
-    total = 0;
+    let total = 0;
 
     cartItemsDiv.innerHTML = '';
+
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 
     cartItems.forEach((item, index) => {
       const cartItemDiv = document.createElement('div');
       cartItemDiv.className = 'cart-item';
       cartItemDiv.innerHTML = `
-        <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
-        <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+          <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
+          <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
       `;
       cartItemsDiv.appendChild(cartItemDiv);
       total += item.price;
     });
 
+    // Update total with coupon discount if applied
+    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
+    if (ewebCouponApplied === 'true') {
+      total *= 0.75; // Apply a 25% discount
+    }
 
     cartTotal.textContent = ` ${total.toFixed(2)} Kr`;
 
@@ -207,16 +213,15 @@
 
     const paypalButtonContainer = document.getElementById('paypal-button-container');
     paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
-
-    // Remove the coupon when there is a change in the cart
-    updateCouponStatus();
   }
 
-  function placeOrder(){
-    window.location.href = 'Infos.html';
-  }
+  // Call updateCart function when the page loads
+  window.onload = updateCart;
+
   // Function to delete an item from the cart
   function deleteItem(index) {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
     // Check if the index is valid
     if (index >= 0 && index < cartItems.length) {
       cartItems.splice(index, 1);
@@ -225,28 +230,56 @@
     } else {
       alert('Invalid item index.');
     }
+
+    // Remove the coupon when an item is deleted
+    localStorage.removeItem('ewebCouponApplied');
   }
 
-  // Existing placeOrder function...
-
-  // Existing applyCoupon function...
-
-
-  // Listen for changes in localStorage (cartItems)
-  window.addEventListener('storage', function (e) {
-    if (e.key === 'cartItems') {
-      cartItems = JSON.parse(e.newValue) || [];
-      updateCart();
-    }
-  });
+  function placeOrder() {
+    location.href = 'Infos.html';
+    // You can redirect to another page or perform other actions
+  }
 
   // Call updateCart function when the page loads
-  window.onload = updateCart;
+  paypal.Buttons({
+    createOrder: function (data, actions) {
+      // Set up the transaction
+      return actions.order.create({
+        purchase_units: [{
+          amount: {
+            value: total.toFixed(2),
+            currency_code: 'SEK',
+          },
+        }],
+      });
+    },
+    onApprove: function (data, actions) {
+      // Capture the funds from the transaction
+      return actions.order.capture().then(function (details) {
+        // Call your server to save the transaction
+        alert('Transaction completed by ' + details.payer.name.given_name);
+        // Clear the cart or perform other actions
+        cartItems.length = 0;
+        updateCart();
+      });
+    }
+  }).render('#paypal-button-container');
 
-  // Existing PayPal buttons script...
+  function applyCoupon() {
+    const couponCodeInput = document.getElementById('coupon-code');
+    const couponCode = couponCodeInput.value.trim();
+
+    if (couponCode === 'eweb') {
+      // Store a flag to indicate the "eweb" coupon
+      localStorage.setItem('ewebCouponApplied', 'true');
+      alert('Coupon applied successfully!');
+    } else {
+      alert('Please enter a valid coupon code.');
+    }
+
+    updateCart(); // Update the cart with the discount
+  }
 </script>
-
-<!-- Existing script ... -->
 
 
   <footer class="container-fluid footer_section">
