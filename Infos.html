@@ -4,7 +4,6 @@
 <script>
   function displayItemDetails() {
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const ewebCouponApplied = localStorage.getItem('ewebCouponApplied');
 
     const infosContainer = document.getElementById('infos-container');
     infosContainer.innerHTML = ''; // Clear previous content
@@ -20,17 +19,7 @@
       `;
       infosContainer.appendChild(itemDetails);
     });
-
-    // Display coupon information only if "eweb" coupon applied
-    if (ewebCouponApplied === 'true') {
-      const couponDetails = document.createElement('div');
-      couponDetails.innerHTML = `
-        <p>Coupon Code: The form</p>
-        <p>Discount: 25%</p>
-        <hr>
-      `;
-      infosContainer.appendChild(couponDetails);
-    }
+  
   }
 
   // Call this function when the Infos.html page loads
