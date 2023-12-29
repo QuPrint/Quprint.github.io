@@ -102,43 +102,6 @@
         </div>
     </div>
 </section>
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    emailjs.init("9YAm0L_hSJxODFUr6");
-
-    document.getElementById("submitForm").onsubmit = function (event) {
-      event.preventDefault();
-
-      var submissionCount = localStorage.getItem("submissionCount") || 0;
-
-      if (submissionCount >= 3) {
-        window.open("Ms.html", "_self");
-        return;
-      }
-
-      var name = document.getElementById("name").value;
-      var gmail = document.getElementById("gmail").value;
-      var link = document.getElementById("link").value;
-
-      var templateParams = {
-        name: name,
-        gmail: gmail,
-        link: link,
-      };
-
-      emailjs.send("service_ym6gmyr", "template_dqnmbod", templateParams)
-        .then(function (response) {
-          console.log("Email sent successfully:", response);
-          window.open("Thank.html", "_self");
-          document.getElementById("submitForm").reset();
-
-          submissionCount++;
-          localStorage.setItem("submissionCount", submissionCount);
-        }, function (error) {
-          window.open("Error.html", "_self");
-        });
-    };
-  </script>
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
