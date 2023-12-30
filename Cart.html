@@ -66,6 +66,42 @@
       font-size: 16px;
     }
 
+    .CountryAd {
+      text-align: center;
+      margin-top: 20px;
+      border: 2px solid rgba(255, 255, 255, 0);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    .CountryAd .Dropdown {
+  margin-top: 1px;
+  border: 2px solid white;
+  background-color: rgba(34, 49, 35, 0);
+  color: white; /* Set default text color to white */
+  font-weight: bold; /* Make text thicker */
+  border-radius: 5px; /* Set border-radius to make corners smooth */
+  overflow: hidden; /* Hide overflow to ensure smooth corners */
+  
+}
+
+/* Set the color of the options to black */
+.CountryAd .Dropdown option {
+  color: black;
+}
+
+/* Add a hover effect for better visibility on the dropdown */
+.CountryAd .Dropdown:hover {
+  background-color: rgb(255, 255, 255); /* Set the background color to its default value on hover */
+  color: rgb(0, 0, 0); /* Change text color on hover */
+  border-radius: 5px; /* Add border-radius for smooth corners on hover */
+}
+
+/* Change text color to white on hover for the options */
+.CountryAd .Dropdown:hover option {
+  color: black; /* Set the text color to its default value on hover */
+}
+
+    
     .coupon-form {
       text-align: center;
       margin-top: 20px;
@@ -112,6 +148,7 @@
   </style>
 </head>
 
+
 <body class="sub_page">
   <div class="hero_area">
     <div class="hero_bg_box">
@@ -142,6 +179,7 @@
     </header>
   </div>
 
+ 
   <section class="contact_section layout_padding">
     <div class="contact_bg_box">
       <div class="img-box">
@@ -167,7 +205,16 @@
   <input type="text" id="coupon-code" name="coupon-code" placeholder="">
   <button type="button" onclick="applyCoupon()">Apply Coupon</button>
 </div>
-
+<div class="CountryAd">
+  <label for="country-dropdown"></label>
+  <select class="CountryAd Dropdown" id="country-dropdown">
+    <option value="Sweden" class="selected-option">Sweden</option>
+    <option value="Denmark">Denmark</option>
+    <option value="Norway">Norway</option>
+    <option value="Finland">Finland</option>
+  </select>
+  
+      </div>
 
     </div>
   </section>
