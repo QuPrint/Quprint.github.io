@@ -207,12 +207,14 @@
 </div>
 <div class="CountryAd">
   <label for="country-dropdown"></label>
-  <select class="CountryAd Dropdown" id="country-dropdown">
-    <option value="Sweden" class="selected-option">Sweden</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Norway">Norway</option>
-    <option value="Finland">Finland</option>
-  </select>
+ <!-- Add an onchange attribute to the select element to call a function when the country is changed -->
+<select class="CountryAd Dropdown" id="country-dropdown" onchange="updateSelectedCountry()">
+  <option value="Sweden" class="selected-option">Sweden</option>
+  <option value="Denmark">Denmark</option>
+  <option value="Norway">Norway</option>
+  <option value="Finland">Finland</option>
+</select>
+
   
       </div>
 
@@ -220,6 +222,12 @@
   </section>
 
 <script>
+  // Add a function to update the selected country in local storage
+function updateSelectedCountry() {
+  const selectedCountry = document.getElementById('country-dropdown').value;
+  localStorage.setItem('selectedCountry', selectedCountry);
+}
+
  // Clear coupon code on page load/refresh
 localStorage.removeItem('ewebCouponApplied');
 
