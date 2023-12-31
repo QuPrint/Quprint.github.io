@@ -31,7 +31,18 @@
       infosContainer.appendChild(itemDetails);
     });
   }
+window.onload = function () {
+    const storedData = localStorage.getItem('specificationFormData');
+    if (storedData) {
+      const formData = JSON.parse(storedData);
 
+      // Now you can use formData to display or process the data on Infos.html
+      console.log(formData);
+    }
+
+    // Clear the stored data to avoid displaying it again on page reload
+    localStorage.removeItem('specificationFormData');
+  };
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
 </script>
