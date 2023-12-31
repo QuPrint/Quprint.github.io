@@ -110,7 +110,9 @@
         </div>
     </div>
 </section>
-  <script>
+ <!-- Your existing HTML content -->
+
+<script>
   function submitForm(event) {
     event.preventDefault();
 
@@ -135,7 +137,11 @@
     // Redirect to Infos.html
     window.location.href = 'Infos.html';
   }
+
+  // Add an event listener to the form for submission
+  document.getElementById('submitForm').addEventListener('submit', submitForm);
 </script>
+
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
