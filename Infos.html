@@ -32,6 +32,24 @@
     });
   }
 
+     const formData = JSON.parse(localStorage.getItem('formData')) || {};
+
+      // Display form data in Infos.html
+      const infosContainer = document.getElementById('infos-container');
+      const formDetails = document.createElement('div');
+      formDetails.innerHTML = `
+        <p>FullName: ${formData.fullName}</p>
+        <p>Street Address: ${formData.streetAddress}</p>
+        <p>Postal Code: ${formData.postalCode}</p>
+        <p>City: ${formData.city}</p>
+        <p>Gmail: ${formData.gmail}</p>
+        <p>PhoneNumber: ${formData.phoneNumber}</p>
+      `;
+      infosContainer.appendChild(formDetails);
+    }
+
+    // Call this function when the Infos.html page loads
+    window.onload = displayItemDetails;
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
 </script>
