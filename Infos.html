@@ -3,35 +3,36 @@
 <div id="infos-container"></div>
 <script>
   function displayItemDetails() {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const infosContainer = document.getElementById('infos-container');
-  infosContainer.innerHTML = '';
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const infosContainer = document.getElementById('infos-container');
+    infosContainer.innerHTML = ''; // Clear previous content
 
-  // Retrieve coupon information
-  const couponInfo = localStorage.getItem('ewebCouponApplied');
-  if (couponInfo) {
-    const couponDetails = document.createElement('p');
-    couponDetails.textContent = `Coupon Applied: ${couponInfo}`;
-    infosContainer.appendChild(couponDetails);
-  } else {
-    const noCouponDetails = document.createElement('p');
-    noCouponDetails.textContent = 'No Coupon Applied';
-    infosContainer.appendChild(noCouponDetails);
+    // Retrieve coupon information
+    const couponInfo = localStorage.getItem('ewebCouponApplied');
+    if (couponInfo) {
+      const couponDetails = document.createElement('p');
+      couponDetails.textContent = `Coupon: ${couponInfo}`;
+      infosContainer.appendChild(couponDetails);
+    } else {
+      const noCouponDetails = document.createElement('p');
+      noCouponDetails.textContent = 'No Coupon';
+      infosContainer.appendChild(noCouponDetails);
+    }
+
+    cartItems.forEach((item) => {
+      const itemDetails = document.createElement('div');
+      itemDetails.innerHTML = `
+        <p>ID: ${item.id}</p>
+        <p>Item: ${item.name}</p>
+        <p>Quantity: ${item.quantity}</p>
+        <p>Price: ${item.price.toFixed(2)} Kr</p>
+        <hr>
+      `;
+      infosContainer.appendChild(itemDetails);
+    });
   }
-
-  cartItems.forEach((item) => {
-    const itemDetails = document.createElement('div');
-    itemDetails.innerHTML = `
-      <p>ID: ${item.id}</p>
-      <p>Item: ${item.name}</p>
-      <p>Quantity: ${item.quantity}</p>
-      <p>Price: ${item.price.toFixed(2)} Kr</p>
-      <hr>
-    `;
-    infosContainer.appendChild(itemDetails);
-  });
-}
 
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
 </script>
+
