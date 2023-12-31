@@ -30,6 +30,35 @@
       `;
       infosContainer.appendChild(itemDetails);
     });
+     const formData = JSON.parse(localStorage.getItem('formData')) || {};
+
+    const infosContainer = document.getElementById('infos-container');
+    infosContainer.innerHTML = ''; // Clear previous content
+
+    // Display form data
+    const fullNameDetails = document.createElement('p');
+    fullNameDetails.textContent = `FullName: ${formData.FullName}`;
+    infosContainer.appendChild(fullNameDetails);
+
+    const streetAddressDetails = document.createElement('p');
+    streetAddressDetails.textContent = `Street Address: ${formData.StreetAddress}`;
+    infosContainer.appendChild(streetAddressDetails);
+
+    const postalCodeDetails = document.createElement('p');
+    postalCodeDetails.textContent = `Postal Code: ${formData.PostalCode}`;
+    infosContainer.appendChild(postalCodeDetails);
+
+    const cityDetails = document.createElement('p');
+    cityDetails.textContent = `City: ${formData.City}`;
+    infosContainer.appendChild(cityDetails);
+
+    const gmailDetails = document.createElement('p');
+    gmailDetails.textContent = `Gmail: ${formData.Gmail}`;
+    infosContainer.appendChild(gmailDetails);
+
+    const phoneNumberDetails = document.createElement('p');
+    phoneNumberDetails.textContent = `PhoneNumber: ${formData.PhoneNumber}`;
+    infosContainer.appendChild(phoneNumberDetails);
   }
 
   // Call this function when the Infos.html page loads
