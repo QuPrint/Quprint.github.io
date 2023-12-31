@@ -220,6 +220,30 @@
   </section>
 
 <script>
+  function handleCountryChange() {
+    const countryDropdown = document.getElementById('country-dropdown');
+    const selectedCountry = countryDropdown.value;
+
+    // Save the selected country to local storage
+    localStorage.setItem('selectedCountry', selectedCountry);
+  }
+
+  // Attach the event listener to the country dropdown
+  document.getElementById('country-dropdown').addEventListener('change', handleCountryChange);
+
+  // Function to set the initial selected country on page load
+  function setInitialCountry() {
+    const countryDropdown = document.getElementById('country-dropdown');
+    const selectedCountry = localStorage.getItem('selectedCountry');
+
+    // Set the selected country if it exists in local storage
+    if (selectedCountry) {
+      countryDropdown.value = selectedCountry;
+    }
+  }
+
+  // Call the function to set the initial selected country on page load
+  window.onload = setInitialCountry;
  // Clear coupon code on page load/refresh
 localStorage.removeItem('ewebCouponApplied');
 
