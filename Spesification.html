@@ -110,6 +110,34 @@
         </div>
     </div>
 </section>
+  <script>
+  document.getElementById('submitForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Retrieve form data
+    const formData = new FormData(event.target);
+    const formObject = {};
+    formData.forEach((value, key) => {
+      formObject[key] = value;
+    });
+
+    // Convert form data to JSON
+    const jsonData = JSON.stringify(formObject);
+
+    // Perform the AJAX request to submit the data to Infos.html
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'Infos.html', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        // Handle the response if needed
+        console.log(xhr.responseText);
+      }
+    };
+    xhr.send(jsonData);
+  });
+</script>
+
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
