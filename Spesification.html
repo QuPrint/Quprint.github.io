@@ -110,27 +110,6 @@
         </div>
     </div>
 </section>
-<script>
-    function submitForm() {
-      // Get form data
-      const formData = {
-        name: document.getElementById('name').value,
-        street: document.getElementById('street').value,
-        code: document.getElementById('Code').value,
-        city: document.getElementById('city').value,
-        gmail: document.getElementById('gmail').value,
-        pn: document.getElementById('Pn').value
-      };
-
-      // Send form data to infos.html using localStorage
-      localStorage.setItem('formData', JSON.stringify(formData));
-
-      // Redirect to infos.html
-      window.location.href = 'infos.html';
-    }
-  </script>
-
-
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
