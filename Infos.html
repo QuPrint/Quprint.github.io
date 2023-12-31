@@ -33,6 +33,7 @@
 
       // Retrieve form data from localStorage
       const formData = JSON.parse(localStorage.getItem('formData')) || {};
+      const cartItems = JSON.parse(localStorage.getItem('formData')) || [];
 
       // Display form data in Infos.html
       const formDetails = document.createElement('div');
