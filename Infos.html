@@ -48,17 +48,7 @@
       infosContainer.appendChild(itemDetails);
     });
   }
-    const couponInfo = localStorage.getItem('ewebCouponApplied');
-    if (couponInfo) {
-      const couponDetails = document.createElement('p');
-      couponDetails.textContent = `Coupon: ${couponInfo}`;
-      infosContainer.appendChild(couponDetails);
-    } else {
-      const noCouponDetails = document.createElement('p');
-      noCouponDetails.textContent = 'No Coupon';
-      infosContainer.appendChild(noCouponDetails);
-    }
-
+   
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
 </script>
