@@ -7,18 +7,35 @@
     const infosContainer = document.getElementById('infos-container');
     infosContainer.innerHTML = ''; // Clear previous content
 
-    // Retrieve coupon information
-    const couponInfo = localStorage.getItem('ewebCouponApplied');
-    if (couponInfo) {
-      const couponDetails = document.createElement('p');
-      couponDetails.textContent = `Coupon: ${couponInfo}`;
-      infosContainer.appendChild(couponDetails);
-    } else {
-      const noCouponDetails = document.createElement('p');
-      noCouponDetails.textContent = 'No Coupon';
-      infosContainer.appendChild(noCouponDetails);
-    }
+    // Retrieve form data from localStorage
+    const formData = JSON.parse(localStorage.getItem('formData')) || {};
 
+    // Display form data in Infos.html
+    const fullNameDetails = document.createElement('p');
+    fullNameDetails.textContent = `FullName: ${formData.FullName}`;
+    infosContainer.appendChild(fullNameDetails);
+
+    const streetAddressDetails = document.createElement('p');
+    streetAddressDetails.textContent = `Street Address: ${formData.StreetAddress}`;
+    infosContainer.appendChild(streetAddressDetails);
+
+    const postalCodeDetails = document.createElement('p');
+    postalCodeDetails.textContent = `Postal Code: ${formData.PostalCode}`;
+    infosContainer.appendChild(postalCodeDetails);
+
+    const cityDetails = document.createElement('p');
+    cityDetails.textContent = `City: ${formData.City}`;
+    infosContainer.appendChild(cityDetails);
+
+    const gmailDetails = document.createElement('p');
+    gmailDetails.textContent = `Gmail: ${formData.Gmail}`;
+    infosContainer.appendChild(gmailDetails);
+
+    const phoneNumberDetails = document.createElement('p');
+    phoneNumberDetails.textContent = `PhoneNumber: ${formData.PhoneNumber}`;
+    infosContainer.appendChild(phoneNumberDetails);
+
+    // Display other cart items as before
     cartItems.forEach((item) => {
       const itemDetails = document.createElement('div');
       itemDetails.innerHTML = `
@@ -31,6 +48,16 @@
       infosContainer.appendChild(itemDetails);
     });
   }
+    const couponInfo = localStorage.getItem('ewebCouponApplied');
+    if (couponInfo) {
+      const couponDetails = document.createElement('p');
+      couponDetails.textContent = `Coupon: ${couponInfo}`;
+      infosContainer.appendChild(couponDetails);
+    } else {
+      const noCouponDetails = document.createElement('p');
+      noCouponDetails.textContent = 'No Coupon';
+      infosContainer.appendChild(noCouponDetails);
+    }
 
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
