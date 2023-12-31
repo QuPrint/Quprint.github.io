@@ -1,9 +1,8 @@
 <link rel="icon" type="image/x-icon" href="images/favicon.png">
 <title>Quprint</title>
 <div id="infos-container"></div>
-  <script>
-    
-       function displayItemDetails() {
+    <script>
+    function displayItemDetails() {
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const infosContainer = document.getElementById('infos-container');
       infosContainer.innerHTML = ''; // Clear previous content
@@ -46,14 +45,16 @@
         <p>PhoneNumber: ${formData.phoneNumber}</p>
       `;
       infosContainer.appendChild(formDetails);
+
+      // Retrieve selected country from localStorage
+      const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+
+      // Display selected country in Infos.html
+      const countryDetails = document.createElement('p');
+      countryDetails.textContent = `Country: ${selectedCountry}`;
+      infosContainer.appendChild(countryDetails);
     }
 
-     const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
-
-  // Display selected country in Infos.html
-  const countryDetails = document.createElement('p');
-  countryDetails.textContent = `Country: ${selectedCountry}`;
-  infosContainer.appendChild(countryDetails);
     // Call this function when the Infos.html page loads
     window.onload = displayItemDetails;
   </script>
