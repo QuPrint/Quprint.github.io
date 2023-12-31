@@ -109,7 +109,7 @@
               <span>
                 Quantumsprints@gmail.com
               </span>
-            </a>
+            </a>        
 
           </div>
         </div>
@@ -123,12 +123,8 @@
         <div class="col-md-6 px-0">
           <div class="img_container">
             <div class="img-box">
-              <img src="../images/T1_1.png" alt="" id="product-image"/>
+              <img src="../images/T2_1.png" alt="" id="product-image"/>
             </div>
-          </div>
-          <div class="arrow-buttons-container">
-            <button class="arrow-button" onclick="changeImage('prev')">←</button>
-            <button class="arrow-button" onclick="changeImage('next')">→</button>
           </div>
           <button class="heart-button" id="heart-button" onclick="toggleHeart()">
             <svg class="heart-shape" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -141,9 +137,9 @@
           <div class="detail-box">
             <div class="heading_container ">
               <h2>
-                Love Heart<hr>5kr</h2>
+                LoveBoard<hr>5kr</h2>
             </div>
-            <p>
+           <p>
               Create your custom Love-Heart with ease!
               <br><br>
               Create a timeless symbol of love with our personalized Heart design. effortlessly input the two names that hold a special place in your heart, and watch as they elegantly unite within a charming heart emblem. This unique piece captures the essence of your connection, making it a perfect gift for anniversaries, birthdays, or any occasion that celebrates love. Order now for your unique love story into a beautiful keepsake.
@@ -152,22 +148,15 @@
             </p>
             <br>
             <br>
-            <div class="checkbox-container">
-              <input type="radio" id="largeCheckbox" name="size" value="Large">
-              <label for="largeCheckbox">Large</label>
-              <input type="radio" id="mediumCheckbox" name="size" value="Medium">
-              <label for="mediumCheckbox">Medium</label>
-              <input type="radio" id="smallCheckbox" name="size" value="Small">
-              <label for="smallCheckbox">Small</label>
-            </div>
             <div class="file-upload">
-              <input type="file" id="imageUpload" accept=".png">
+              <input type="text" id="Pn" name="Pn" value="" placeholder="First Name" required><br><br>              
+              <input type="text" id="Pn1" name="Pn1" value="" placeholder="Second Name" required><br>
             </div>
             <div class="NOTE">
-              NOTE: Ink Not Included
+              <br>
             </div>
             <div class="btn-box">
-              <a href="javascript:void(0);" onclick="addToCart('Stamp', 5)">
+              <a href="javascript:void(0);" onclick="addToCart('Love-Heart', 5)">
                 Add to basket
               </a>
             </div>
@@ -177,31 +166,32 @@
     </div>
   </section>
 
-  <script>
+ <script>
     window.onbeforeunload = function () {
-    // Clear the file input value when leaving the page
-    const imageUpload = document.getElementById('imageUpload');
-    imageUpload.value = '';
-  };
+      // Clear the file input value when leaving the page
+      const imageUpload = document.getElementById('imageUpload');
+      imageUpload.value = '';
+    };
 
-  // Add this function to update the filename display
-  function updateFilename() {
-    const imageUpload = document.getElementById('imageUpload');
-    const filenameDisplay = document.getElementById('filenameDisplay');
+    // Add this function to update the filename display
+    function updateFilename() {
+      const imageUpload = document.getElementById('imageUpload');
+      const filenameDisplay = document.getElementById('filenameDisplay');
 
-    // Check if a file is selected
-    if (imageUpload.files.length > 0) {
-      filenameDisplay.textContent = imageUpload.files[0].name;
-    } else {
-      filenameDisplay.textContent = ''; // Clear the display if no file is selected
+      // Check if a file is selected
+      if (imageUpload.files.length > 0) {
+        filenameDisplay.textContent = imageUpload.files[0].name;
+      } else {
+        filenameDisplay.textContent = ''; // Clear the display if no file is selected
+      }
     }
-  }
 
-  // Add an event listener to the file input to update the filename display
-  document.getElementById('imageUpload').addEventListener('change', updateFilename);
-     let currentImageIndex = 1;
+    // Add an event listener to the file input to update the filename display
+    document.getElementById('imageUpload').addEventListener('change', updateFilename);
 
-     function changeImage(direction) {
+    let currentImageIndex = 1;
+
+    function changeImage(direction) {
       const productImage = document.getElementById('product-image');
 
       if (direction === 'next') {
@@ -210,7 +200,7 @@
         currentImageIndex = (currentImageIndex - 2 + 3) % 3 + 1;
       }
 
-      productImage.src = `../images/T1_${currentImageIndex}.png`;
+      productImage.src = `../images/T2_${currentImageIndex}.png`;
     }
 
     function toggleHeart() {
@@ -237,6 +227,10 @@
         heartButton.querySelector('.red-heart').style.display = 'block';
         heartButton.querySelector('.white-heart').style.display = 'none';
       }
+
+      const cartItemCount = document.getElementById('cart-item-count');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartItemCount.textContent = cartItems.length;
     };
 
     function getCookie(name) {
@@ -245,34 +239,36 @@
       if (parts.length === 2) return parts.pop().split(';').shift();
     }
 
-     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-     
-     window.onload = function () {
-         const cartItemCount = document.getElementById('cart-item-count');
-         cartItemCount.textContent = cartItems.length;
-     };
-
-     function addToCart(itemName, itemPrice) {
+  function addToCart(itemName, itemPrice) {
+    const cartItemCount = document.getElementById('cart-item-count');
     const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    const largeCheckbox = document.getElementById('largeCheckbox');
-    const mediumCheckbox = document.getElementById('mediumCheckbox');
-    const smallCheckbox = document.getElementById('smallCheckbox');
-    const imageUpload = document.getElementById('imageUpload');
+    const name1Input = document.getElementById('Pn');
+    const name2Input = document.getElementById('Pn1');
 
-    if (!(largeCheckbox.checked || mediumCheckbox.checked || smallCheckbox.checked) || !imageUpload.files.length) {
-        alert('Please select a size and upload a PNG image to add to the cart.');
-        return;
+    // Check if the name1Input or name2Input is empty
+    const name1 = name1Input.value.trim();
+    const name2 = name2Input.value.trim();
+    if (name1 === '' || name2 === '') {
+      alert('Please fill in both Names fields');
+      return;
     }
 
-    const newItem = {
-        name: itemName,
-        price: itemPrice
-    };
+    const id = `${name1}, ${name2}`;
 
-    cartItems.push(newItem);
+    // Add the item to the cart
+    cartItems.push({
+      id: id,
+      name: itemName,
+      price: itemPrice,
+      quantity: 1, // Always set the quantity to 1
+      Name1: name1,
+      Name2: name2,
+    });
+
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
-
-    }
+    cartItemCount.textContent = cartItems.length;
+    alert('Product added to cart!');
+  }
   </script>
 
   <footer class="container-fluid footer_section">
