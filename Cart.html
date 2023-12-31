@@ -220,13 +220,24 @@
   </section>
 
 <script>
- // Clear coupon code on page load/refresh
+// Clear coupon code on page load/refresh
 localStorage.removeItem('ewebCouponApplied');
 
 // Load cart items from localStorage
 const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
 // Initialize total variable
 let total = 0;
+
+// Load selected country from localStorage
+const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+const countryDropdown = document.getElementById('country-dropdown');
+countryDropdown.value = selectedCountry;
+
+// Event listener for country dropdown change
+countryDropdown.addEventListener('change', function () {
+  const selectedCountry = countryDropdown.value;
+  localStorage.setItem('selectedCountry', selectedCountry);
+});
 
 function applyCoupon() {
   const couponCodeInput = document.getElementById('coupon-code');
@@ -275,9 +286,6 @@ function updateCart() {
 
   const orderButton = document.getElementById('order-button');
   orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-
-  const paypalButtonContainer = document.getElementById('paypal-button-container');
-  paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
 }
 
 function deleteItem(index) {
@@ -319,6 +327,7 @@ paypal.Buttons({
     });
   }
 }).render('#paypal-button-container');
+
 </script>
 
 
