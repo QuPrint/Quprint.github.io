@@ -1,7 +1,7 @@
 <link rel="icon" type="image/x-icon" href="images/favicon.png">
 <title>Quprint</title>
 <div id="infos-container"></div>
- <script>
+  <script>
     function displayItemDetails() {
       const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
       const infosContainer = document.getElementById('infos-container');
@@ -45,20 +45,8 @@
         <p>PhoneNumber: ${formData.phoneNumber}</p>
       `;
       infosContainer.appendChild(formDetails);
-
-      // Retrieve selected country from local storage
-      const selectedCountry = localStorage.getItem('selectedCountry');
-
-      // Display selected country
-      const selectedCountryContainer = document.createElement('div');
-      selectedCountryContainer.innerHTML = `<p>Selected Country: ${selectedCountry}</p>`;
-      infosContainer.appendChild(selectedCountryContainer);
     }
 
     // Call this function when the Infos.html page loads
-    window.onload = function () {
-      displayItemDetails();
-      // Clear selected country from local storage after displaying it
-      localStorage.removeItem('selectedCountry');
-    };
+    window.onload = displayItemDetails;
   </script>
