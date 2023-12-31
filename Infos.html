@@ -33,6 +33,7 @@
 
       // Retrieve form data from localStorage
       const formData = JSON.parse(localStorage.getItem('formData')) || {};
+      const selectedCountry = localStorage.getItem('selectedCountry');
 
       // Display form data in Infos.html
       const formDetails = document.createElement('div');
@@ -46,7 +47,10 @@
       `;
       infosContainer.appendChild(formDetails);
     }
-
+    const selectedCountryContainer = document.getElementById('selected-country-container');
+    const selectedCountryDetails = document.createElement('p');
+    selectedCountryDetails.textContent = `Selected Country: ${selectedCountry}`;
+    selectedCountryContainer.appendChild(selectedCountryDetails);
     // Call this function when the Infos.html page loads
     window.onload = displayItemDetails;
   </script>
