@@ -35,4 +35,39 @@
   // Call this function when the Infos.html page loads
   window.onload = displayItemDetails;
 </script>
+<script>
+  function displayItemDetails() {
+    // Retrieve form data from URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const fullName = urlParams.get('Name');
+    const streetAddress = urlParams.get('street');
+    const postalCode = urlParams.get('Code');
+    const city = urlParams.get('City');
+    const gmail = urlParams.get('gmail');
+    const phoneNumber = urlParams.get('Pn');
+
+    // Display form data on the page
+    const infosContainer = document.getElementById('infos-container');
+    infosContainer.innerHTML = `
+      <p>FullName: ${fullName}</p>
+      <p>Street Adress: ${streetAddress}</p>
+      <p>Postal Code: ${postalCode}</p>
+      <p>City: ${city}</p>
+      <p>Gmail: ${gmail}</p>
+      <p>Phonenumber: ${phoneNumber}</p>
+    `;
+  }
+
+  // Call this function when the Infos.html page loads
+  window.onload = function () {
+    displayItemDetails();
+
+    // Check if the page origin is from Specification.html
+    if (document.referrer.includes('Specification.html')) {
+      const cartItemCount = document.getElementById('cart-item-count');
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      cartItemCount.textContent = cartItems.length;
+    }
+  };
+</script>
 
