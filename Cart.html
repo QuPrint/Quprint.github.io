@@ -221,113 +221,100 @@
     </div>
   </section>
 
-<script>
-  // Add a function to update the selected country in local storage
-function updateSelectedCountry() {
-  const selectedCountry = document.getElementById('country-dropdown').value;
-  localStorage.setItem('selectedCountry', selectedCountry);
-}
-
- // Clear coupon code on page load/refresh
-localStorage.removeItem('ewebCouponApplied');
-
-// Load cart items from localStorage
-const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-// Initialize total variable
-let total = 0;
-
-function applyCoupon() {
-  const couponCodeInput = document.getElementById('coupon-code');
-  const couponCode = couponCodeInput.value.trim();
-
-  if (couponCode === 'eweb') {
-    couponPercentage = 25;
-    localStorage.setItem('ewebCouponApplied', '25%, eweb');
-    alert('Coupon applied successfully!');
-  } else {
-    couponPercentage = 0;
+ <script>
+    // Clear coupon code on page load/refresh
     localStorage.removeItem('ewebCouponApplied');
-    alert('Invalid coupon code.');
-  }
 
-  updateCart();
-}
+    // Load cart items from localStorage
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    // Initialize total variable
+    let total = 0;
 
-function updateCart() {
-  const cartItemsDiv = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
+    function applyCoupon() {
+      const couponCodeInput = document.getElementById('coupon-code');
+      const couponCode = couponCodeInput.value.trim();
 
-  let total = 0;
+      if (couponCode === 'eweb') {
+        couponPercentage = 25;
+        localStorage.setItem('ewebCouponApplied', '25%, eweb');
+        alert('Coupon applied successfully!');
+      } else {
+        couponPercentage = 0;
+        localStorage.removeItem('ewebCouponApplied');
+        alert('Invalid coupon code.');
+      }
 
-  cartItemsDiv.innerHTML = '';
-
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-  cartItems.forEach((item, index) => {
-    const cartItemDiv = document.createElement('div');
-    cartItemDiv.className = 'cart-item';
-    cartItemDiv.innerHTML = `
-        <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
-        <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
-    `;
-    cartItemsDiv.appendChild(cartItemDiv);
-    total += item.price;
-  });
-
-  // Apply coupon discount
-  const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
-  const discount = (total * couponPercentage) / 100;
-  const discountedTotal = total - discount;
-
-  cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
-
-  const orderButton = document.getElementById('order-button');
-  orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
-
-  const paypalButtonContainer = document.getElementById('paypal-button-container');
-  paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
-}
-
-function deleteItem(index) {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-
-  if (index >= 0 && index < cartItems.length) {
-    cartItems.splice(index, 1);
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
-    updateCart();
-  } else {
-    alert('Invalid item index.');
-  }
-
-  localStorage.removeItem('ewebCouponApplied');
-}
-
-function placeOrder() {
-  location.href = 'Spesification.html';
-}
-
-window.onload = updateCart;
-
-paypal.Buttons({
-  createOrder: function (data, actions) {
-    return actions.order.create({
-      purchase_units: [{
-        amount: {
-          value: total.toFixed(2),
-          currency_code: 'SEK',
-        },
-      }],
-    });
-  },
-  onApprove: function (data, actions) {
-    return actions.order.capture().then(function (details) {
-      alert('Transaction completed by ' + details.payer.name.given_name);
-      cartItems.length = 0;
       updateCart();
-    });
-  }
-}).render('#paypal-button-container');
-</script>
+    }
+
+    function updateCart() {
+      const cartItemsDiv = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+
+      let total = 0;
+
+      cartItemsDiv.innerHTML = '';
+
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      cartItems.forEach((item, index) => {
+        const cartItemDiv = document.createElement('div');
+        cartItemDiv.className = 'cart-item';
+        cartItemDiv.innerHTML = `
+            <span>${item.name} - ${item.price.toFixed(2)} Kr</span>
+            <button class="delete-button" onclick="deleteItem(${index})">Delete</button>
+        `;
+        cartItemsDiv.appendChild(cartItemDiv);
+        total += item.price;
+      });
+
+      // Apply coupon discount
+      const couponPercentage = localStorage.getItem('ewebCouponApplied') ? 25 : 0;
+      const discount = (total * couponPercentage) / 100;
+      const discountedTotal = total - discount;
+
+      cartTotal.textContent = ` ${discountedTotal.toFixed(2)} Kr`;
+
+      const orderButton = document.getElementById('order-button');
+      orderButton.style.display = cartItems.length > 0 ? 'block' : 'none';
+
+      const paypalButtonContainer = document.getElementById('paypal-button-container');
+      paypalButtonContainer.style.display = cartItems.length > 0 ? 'block' : 'none';
+    }
+
+    function deleteItem(index) {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+
+      if (index >= 0 && index < cartItems.length) {
+        cartItems.splice(index, 1);
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        updateCart();
+      } else {
+        alert('Invalid item index.');
+      }
+
+      localStorage.removeItem('ewebCouponApplied');
+    }
+
+    function placeOrder() {
+      location.href = 'Spesification.html';
+    }
+
+    // Add a function to update the selected country in local storage
+    function updateSelectedCountry() {
+      const selectedCountry = document.getElementById('country-dropdown').value;
+      localStorage.setItem('selectedCountry', selectedCountry);
+    }
+
+    window.onload = function () {
+      updateCart();
+      // Load selected country from local storage and set it in the dropdown
+      const selectedCountry = localStorage.getItem('selectedCountry');
+      if (selectedCountry) {
+        document.getElementById('country-dropdown').value = selectedCountry;
+      }
+    };
+  </script>
 
 
 
