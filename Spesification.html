@@ -110,6 +110,32 @@
         </div>
     </div>
 </section>
+  <script>
+  function submitForm(event) {
+    event.preventDefault();
+
+    // Retrieve form data
+    const fullName = document.getElementById('name').value;
+    const streetAddress = document.getElementById('street').value;
+    const postalCode = document.getElementById('Code').value;
+    const city = document.getElementById('city').value;
+    const gmail = document.getElementById('gmail').value;
+    const phoneNumber = document.getElementById('Pn').value;
+
+    // Store form data in localStorage for Infos.html to access
+    localStorage.setItem('formData', JSON.stringify({
+      fullName,
+      streetAddress,
+      postalCode,
+      city,
+      gmail,
+      phoneNumber
+    }));
+
+    // Redirect to Infos.html
+    window.location.href = 'Infos.html';
+  }
+</script>
   <footer class="container-fluid footer_section">
     <p>
       &copy; <span id="currentYear"></span> All Rights Reserved. Design by Ali</a>
