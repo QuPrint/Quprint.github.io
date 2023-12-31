@@ -2,45 +2,58 @@
 <title>Quprint</title>
 <div id="infos-container"></div>
   <script>
-    function displayItemDetails() {
-  const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-  const infosContainer = document.getElementById('infos-container');
-  infosContainer.innerHTML = ''; // Clear previous content
+    
+       function displayItemDetails() {
+      const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+      const infosContainer = document.getElementById('infos-container');
+      infosContainer.innerHTML = ''; // Clear previous content
 
-  // Retrieve coupon information
-  const couponInfo = localStorage.getItem('ewebCouponApplied');
-  if (couponInfo) {
-    const couponDetails = document.createElement('p');
-    couponDetails.textContent = `Coupon: ${couponInfo}`;
-    infosContainer.appendChild(couponDetails);
-  } else {
-    const noCouponDetails = document.createElement('p');
-    noCouponDetails.textContent = 'No Coupon';
-    infosContainer.appendChild(noCouponDetails);
-  }
+      // Retrieve coupon information
+      const couponInfo = localStorage.getItem('ewebCouponApplied');
+      if (couponInfo) {
+        const couponDetails = document.createElement('p');
+        couponDetails.textContent = `Coupon: ${couponInfo}`;
+        infosContainer.appendChild(couponDetails);
+      } else {
+        const noCouponDetails = document.createElement('p');
+        noCouponDetails.textContent = 'No Coupon';
+        infosContainer.appendChild(noCouponDetails);
+      }
 
-  cartItems.forEach((item) => {
-    const itemDetails = document.createElement('div');
-    itemDetails.innerHTML = `
-      <p>ID: ${item.id}</p>
-      <p>Item: ${item.name}</p>
-      <p>Quantity: ${item.quantity}</p>
-      <p>Price: ${item.price.toFixed(2)} Kr</p>
-      <hr>
-    `;
-    infosContainer.appendChild(itemDetails);
-  });
+      cartItems.forEach((item) => {
+        const itemDetails = document.createElement('div');
+        itemDetails.innerHTML = `
+          <p>ID: ${item.id}</p>
+          <p>Item: ${item.name}</p>
+          <p>Quantity: ${item.quantity}</p>
+          <p>Price: ${item.price.toFixed(2)} Kr</p>
+          <hr>
+        `;
+        infosContainer.appendChild(itemDetails);
+      });
 
-  // Retrieve selected country from localStorage
-  const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
+      // Retrieve form data from localStorage
+      const formData = JSON.parse(localStorage.getItem('formData')) || {};
+
+      // Display form data in Infos.html
+      const formDetails = document.createElement('div');
+      formDetails.innerHTML = `
+        <p>FullName: ${formData.fullName}</p>
+        <p>Street Address: ${formData.streetAddress}</p>
+        <p>Postal Code: ${formData.postalCode}</p>
+        <p>City: ${formData.city}</p>
+        <p>Gmail: ${formData.gmail}</p>
+        <p>PhoneNumber: ${formData.phoneNumber}</p>
+      `;
+      infosContainer.appendChild(formDetails);
+    }
+
+     const selectedCountry = localStorage.getItem('selectedCountry') || 'Sweden';
 
   // Display selected country in Infos.html
   const countryDetails = document.createElement('p');
   countryDetails.textContent = `Country: ${selectedCountry}`;
   infosContainer.appendChild(countryDetails);
-}
-
-// Call this function when the Infos.html page loads
-window.onload = displayItemDetails;
-
+    // Call this function when the Infos.html page loads
+    window.onload = displayItemDetails;
   </script>
